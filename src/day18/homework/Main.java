@@ -174,14 +174,14 @@ public class Main {
 	 * 3. 일정 삭제
 	 * 4. 일정 확인
 	 * 5. 이전으로
-	 * 메뉴 선택 : 
+	 * 메뉴 선택 : 3
 	 * -----------------
 	 * 쉬운 버전과 동일
 	 * */
 	public static void main(String[] args) {
 	
-		ScheduleManager sm = new ScheduleManager();
-		//sm.run();
+		MemberScheduleManager ms = new MemberScheduleManager();
+		ms.run();
 	}
 
 }
