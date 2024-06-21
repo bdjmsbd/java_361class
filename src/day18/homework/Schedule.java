@@ -16,5 +16,11 @@ public class Schedule implements Serializable{
 	private String date;
 	private String content;
 	private String details;
+	@Override
+	public String toString() {
+		return date + " : " + content
+				+ "(" + details + ")";
+	}
 
+	
 }

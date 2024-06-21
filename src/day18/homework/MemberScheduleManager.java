@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -137,7 +138,7 @@ public class MemberScheduleManager {
 
 		if (tmp != null) {
 			String date;
-
+			sc.nextLine();
 			System.out.print("날자(yyyy-MM-dd) : ");
 			date = sc.nextLine();
 
@@ -194,8 +195,9 @@ public class MemberScheduleManager {
 		if (tmp != null) {
 
 			String date;
+			sc.nextLine();
 			System.out.print("날자(yyyy-MM-dd) : ");
-			date = sc.next();
+			date = sc.nextLine();
 
 			List<Integer> scheduleIndex = new ArrayList<Integer>();
 			for (int i = 0; i < tmp.getSchedules().size(); i++) {
@@ -213,8 +215,10 @@ public class MemberScheduleManager {
 
 				Schedule updateSchedule = regScheduleInfo();
 				tmp.getSchedules().set(updateNum, updateSchedule);
-
 				System.out.println("수정이 완료 되었습니다.");
+				Collections.sort(tmp.getSchedules(),
+						(o1, o2) -> o1.getDate()
+								.compareTo(o2.getDate()));
 			} else {
 				System.out.println("수정할 일정이 없습니다.");
 			}
@@ -232,6 +236,8 @@ public class MemberScheduleManager {
 			Schedule newSchedule = regScheduleInfo();
 			tmp.insertSchedules(newSchedule);
 			System.out.println("일정이 추가되었습니다.");
+			Collections.sort(tmp.getSchedules(),
+					(o1, o2) -> o1.getDate().compareTo(o2.getDate()));
 		} else {
 			System.out.println("등록되지 않은 회원입니다.");
 		}
@@ -240,7 +246,6 @@ public class MemberScheduleManager {
 
 	private Member checkID() {
 		/*
-		 * 
 		 * Member tmp = checkID(); if (tmp != null) { } else {
 		 * System.out.println("등록되지 않은 회원입니다."); }
 		 */
@@ -260,21 +265,12 @@ public class MemberScheduleManager {
 
 	private void deleteMember() {
 
-		String id;
+		Member tmp = checkID();
 
-		System.out.println("아이디 : ");
-		id = sc.next();
-
-		boolean isIDExist = false;
-		for (Member tmp : list) {
-			if (tmp.getId().equals(id)) {
-				list.remove(tmp);
-				System.out.println("삭제가 완료 되었습니다.");
-				isIDExist = true;
-				break;
-			}
-		}
-		if (!isIDExist) {
+		if (tmp != null) {
+			list.remove(tmp);
+			System.out.println("삭제가 완료 되었습니다.");
+		} else {
 			System.out.println("등록되지 않은 회원입니다.");
 		}
 
@@ -282,24 +278,20 @@ public class MemberScheduleManager {
 
 	private void updateMember() {
 
-		String id, newName;
+		String newName;
 
-		System.out.println("아이디 : ");
-		id = sc.next();
+		Member tmp = checkID();
 
-		boolean isIDExist = false;
-		for (Member tmp : list) {
-			if (tmp.getId().equals(id)) {
-				System.out.println("수정할 이름 : ");
-				newName = sc.next();
-				tmp.setName(newName);
+		if (tmp != null) {
+			System.out.println("수정할 이름 : ");
+			newName = sc.next();
+			tmp.setName(newName);
 
-				System.out.println("수정이 완료 되었습니다.");
-				isIDExist = true;
-				break;
-			}
-		}
-		if (!isIDExist) {
+			System.out.println("수정이 완료 되었습니다.");
+			Collections.sort(list,
+					(o1, o2) -> o1.getName().compareTo(o2.getName()));
+
+		} else {
 			System.out.println("등록되지 않은 회원입니다.");
 		}
 
@@ -327,6 +319,9 @@ public class MemberScheduleManager {
 		} else {
 			list.add(newMember);
 			System.out.println("회원이 추가 됐습니다.");
+
+			Collections.sort(list,
+					(o1, o2) -> o1.getName().compareTo(o2.getName()));
 		}
 
 	}
