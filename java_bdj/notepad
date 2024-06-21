@@ -1,0 +1,19 @@
+
+
+
+
+
+	// rand 함수 틀 
+	public static int randGen(int min, int max) {
+		
+		return (int) (Math.random() * (max - min + 1) + min);
+	}
+	
+	Integer [] arr2 =  { 1, 3, 5, 7, 9, 2, 4, 6, 8, 10 };
+		Arrays.sort(arr2, Collections.reverseOrder());
+		
+		Arrays.stream(a).boxed().toArray(Integer[]::new)
+		int[] -> integer[] 로 변경 
+		
+		Arrays.stream(b).mapToInt(Integer::intValue).toArray()
+		integer[] -> int[]로 변경
