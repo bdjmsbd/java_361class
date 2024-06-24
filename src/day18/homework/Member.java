@@ -26,9 +26,9 @@ public class Member implements Serializable {
 
 	private List<Schedule> schedules = new ArrayList<>();
 
-	public void insertSchedules(Schedule newSchedule) {
-		schedules.add(newSchedule);
-	}
+//	public void insertSchedules(Schedule newSchedule) {
+//		schedules.add(newSchedule);
+//	}
 
 	public String str(String a, String b) {
 		return a + b;

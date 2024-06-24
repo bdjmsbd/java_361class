@@ -4,7 +4,7 @@ public interface Program {
 
 	void printMenu();
 
-	void runMenu(int menu) ;
+	void runMenu(int menu) throws Exception ;
 
 	void run();
 

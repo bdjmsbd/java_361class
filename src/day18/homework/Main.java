@@ -1,7 +1,5 @@
 package day18.homework;
 
-import java.util.concurrent.ScheduledExecutorService;
-
 public class Main {
 	/* 일정을 관리하는 프로그램을 작성하세요.
 	 * -----------------

@@ -60,15 +60,25 @@ public class MemberScheduleManager {
 		switch (menu) {
 			case 1:
 				System.out.println("1.회원 관리");
-				printMemberMenu();
-				menuNum = sc.nextInt();
-				runMemberMenu(menuNum);
+				do {
+					printMemberMenu();
+					menuNum = sc.nextInt();
+					runMemberMenu(menuNum);
+				} while (menuNum != 4);
 				break;
 			case 2:
 				System.out.println("2.일정 관리");
-				printScheduleMenu();
-				menuNum = sc.nextInt();
-				runScheduleMenu(menuNum);
+				Member checkInID = checkID();
+				if (checkInID != null) {
+					do {
+
+						printScheduleMenu();
+						menuNum = sc.nextInt();
+						runScheduleMenu(menuNum, checkInID);
+					} while (menuNum != 5);
+				} else {
+					System.out.println("등록되지 않은 회원입니다.");
+				}
 				break;
 			case 3:
 				System.out.println("3.프로그램 종료");
@@ -103,25 +113,25 @@ public class MemberScheduleManager {
 
 	}
 
-	public void runScheduleMenu(int menu) {
+	public void runScheduleMenu(int menu, Member checkInID) {
 		// TODO Auto-generated method stub
 
 		switch (menu) {
 			case 1:
 				System.out.println("1.일정 추가");
-				insertSchedule();
+				insertSchedule(checkInID);
 				break;
 			case 2:
 				System.out.println("2.일정 수정");
-				updateSchedule();
+				updateSchedule(checkInID);
 				break;
 			case 3:
 				System.out.println("3.일정 삭제");
-				deleteSchedule();
+				deleteSchedule(checkInID);
 				break;
 			case 4:
 				System.out.println("4.일정 확인");
-				searchSchedule();
+				searchSchedule(checkInID);
 				break;
 			case 5:
 				System.out.println("5. 이전으로");
@@ -131,117 +141,96 @@ public class MemberScheduleManager {
 		}
 	}
 
-	private void searchSchedule() {
+	private void searchSchedule(Member checkInID) {
 		// TODO Auto-generated method stub
 
-		Member tmp = checkID();
+		String date;
+		sc.nextLine();
+		System.out.print("날자(yyyy-MM-dd) : ");
+		date = sc.nextLine();
 
-		if (tmp != null) {
-			String date;
-			sc.nextLine();
-			System.out.print("날자(yyyy-MM-dd) : ");
-			date = sc.nextLine();
-
-			for (int i = 0; i < tmp.getSchedules()
-					.size(); i++) {
-				if (tmp.getSchedules().get(i).getDate()
-						.contains(date))
-					System.out.println(
-							i + 1 + ". " + tmp.getSchedules().get(i));
-			}
-
-		} else {
-			System.out.println("등록되지 않은 회원입니다.");
+		for (int i = 0; i < checkInID.getSchedules()
+				.size(); i++) {
+			// 수정 -> substring으로 시분 제외하여 동일한 지 비교
+			if (checkInID.getSchedules().get(i).getDate()
+					.contains(date))
+				System.out.println(
+						i + 1 + ". " + checkInID.getSchedules().get(i));
 		}
 
 	}
 
-	private void deleteSchedule() {
+	private void deleteSchedule(Member checkInID) {
 
-		Member tmp = checkID();
-		if (tmp != null) {
+		String date;
+		System.out.print("날자(yyyy-MM-dd) : ");
+		date = sc.nextLine();
 
-			String date;
-			System.out.print("날자(yyyy-MM-dd) : ");
-			date = sc.nextLine();
-
-			List<Integer> scheduleSize = new ArrayList<Integer>();
-			for (int i = 0; i < tmp.getSchedules().size(); i++) {
-				if (tmp.getSchedules().get(i).getDate()
-						.contains(date)) {
-					scheduleSize.add(i);
-					System.out.println(scheduleSize.size() + ". "
-							+ tmp.getSchedules().get(i));
-				}
+		List<Integer> scheduleSize = new ArrayList<Integer>();
+		for (int i = 0; i < checkInID.getSchedules()
+				.size(); i++) {
+			if (checkInID.getSchedules().get(i).getDate()
+					.contains(date)) {
+				scheduleSize.add(i);
+				System.out.println(scheduleSize.size() + ". "
+						+ checkInID.getSchedules().get(i));
 			}
-			if (scheduleSize.size() > 0) {
-				System.out.print("삭제할 일정 선택 : ");
-				int updateNum = sc.nextInt() - 1;
+		}
+		if (scheduleSize.size() > 0) {
+			System.out.print("삭제할 일정 선택 : ");
+			int updateNum = sc.nextInt() - 1;
 
-				tmp.getSchedules().remove(updateNum);
-				System.out.println("삭제가 완료 되었습니다.");
-			} else {
-				System.out.println("삭제할 일정이 없습니다.");
-			}
+			checkInID.getSchedules().remove(updateNum);
+			System.out.println("삭제가 완료 되었습니다.");
 		} else {
-			System.out.println("등록되지 않은 회원입니다.");
+			System.out.println("삭제할 일정이 없습니다.");
 		}
 
 	}
 
-	private void updateSchedule() {
+	private void updateSchedule(Member checkInID) {
 
-		Member tmp = checkID();
-		if (tmp != null) {
+		String date;
+		sc.nextLine();
+		System.out.print("날자(yyyy-MM-dd) : ");
+		date = sc.nextLine();
 
-			String date;
-			sc.nextLine();
-			System.out.print("날자(yyyy-MM-dd) : ");
-			date = sc.nextLine();
-
-			List<Integer> scheduleIndex = new ArrayList<Integer>();
-			for (int i = 0; i < tmp.getSchedules().size(); i++) {
-				if (tmp.getSchedules().get(i).getDate()
-						.contains(date)) {
-					scheduleIndex.add(i);
-					System.out.println(scheduleIndex.size() + ". "
-							+ tmp.getSchedules().get(i));
-				}
+		List<Integer> scheduleIndex = new ArrayList<Integer>();
+		for (int i = 0; i < checkInID.getSchedules()
+				.size(); i++) {
+			if (checkInID.getSchedules().get(i).getDate()
+					.contains(date)) {
+				scheduleIndex.add(i);
+				System.out.println(scheduleIndex.size() + ". "
+						+ checkInID.getSchedules().get(i));
 			}
+		}
 
-			if (scheduleIndex.size() > 0) {
-				System.out.print("수정할 일정 선택 : ");
-				int updateNum = sc.nextInt() - 1;
+		if (scheduleIndex.size() > 0) {
+			System.out.print("수정할 일정 선택 : ");
+			int updateNum = sc.nextInt() - 1;
 
-				Schedule updateSchedule = regScheduleInfo();
-				tmp.getSchedules().set(updateNum, updateSchedule);
-				System.out.println("수정이 완료 되었습니다.");
-				Collections.sort(tmp.getSchedules(),
-						(o1, o2) -> o1.getDate()
-								.compareTo(o2.getDate()));
-			} else {
-				System.out.println("수정할 일정이 없습니다.");
-			}
+			Schedule updateSchedule = regScheduleInfo();
+			checkInID.getSchedules().set(updateNum,
+					updateSchedule);
+			System.out.println("수정이 완료 되었습니다.");
+			Collections.sort(checkInID.getSchedules(),
+					(o1, o2) -> o1.getDate()
+							.compareTo(o2.getDate()));
 		} else {
-			System.out.println("등록되지 않은 회원입니다.");
+			System.out.println("수정할 일정이 없습니다.");
 		}
 
 	}
 
-	private void insertSchedule() {
+	private void insertSchedule(Member checkInID) {
 
-		Member tmp = checkID();
-
-		if (tmp != null) {
-			Schedule newSchedule = regScheduleInfo();
-			tmp.insertSchedules(newSchedule);
-			System.out.println("일정이 추가되었습니다.");
-			Collections.sort(tmp.getSchedules(),
-					(o1, o2) -> o1.getDate().compareTo(o2.getDate()));
-		} else {
-			System.out.println("등록되지 않은 회원입니다.");
-		}
-
+		Schedule newSchedule = regScheduleInfo();
+		checkInID.getSchedules().add(newSchedule);
+//			checkInID.insertSchedules(newSchedule);
+		System.out.println("일정이 추가되었습니다.");
+		Collections.sort(checkInID.getSchedules(),
+				(o1, o2) -> o1.getDate().compareTo(o2.getDate()));
 	}
 
 	private Member checkID() {
