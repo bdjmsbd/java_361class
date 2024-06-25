@@ -63,37 +63,44 @@ public class PostManager implements Program {
 		}
 	}
 
+	public boolean checkPassword(Post post) {
+
+		System.out.print("비밀번호 입력 : ");
+		String password = sc.next();
+		if (!post.getPassword()
+				.equals(password)) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+		return true;
+	}
+
 	private void delete() {
 		// TODO Auto-generated method stub
 		System.out.println("게시물 삭제");
-		sc.nextLine();
-		System.out.print("아이디 입력 (전체검색 Enter): ");
-		String id = sc.nextLine();
-		int postNumber = getpostNumber(id);
+
+		int postNumber = getpostNumber();
 
 		if (postNumber == ERROR) {
 			return;
 		}
-		System.out.print("비밀번호 입력 : ");
-		String password = sc.next();
-		if (!list.get(postNumber).getPassword()
-				.equals(password)) {
-			System.out.println("비밀번호가 일치하지 않습니다.");
-			return;
+		if (checkPassword(list.get(postNumber))) {
+			list.remove(postNumber);
+			printBar();
+			System.out.println("삭제가 완료되었습니다.");
 		}
-
-		list.remove(postNumber);
-		printBar();
-		System.out.println("삭제가 완료되었습니다.");
 
 	}
 
-	public int getpostNumber(String searchStr) {
+	public int getpostNumber() {
 
 		if (list.size() == 0) {
 			System.out.println("등록된 게시물이 없습니다");
 			return ERROR;
 		}
+		sc.nextLine();
+		System.out.print("검색할 제목이나 내용을 입력하세요 : ");
+		String searchStr = sc.nextLine();
 
 		List<Integer> index = new ArrayList<Integer>();
 
@@ -128,47 +135,31 @@ public class PostManager implements Program {
 	private void update() {
 		// TODO Auto-generated method stub
 		System.out.println("게시물 수정");
-		sc.nextLine();
-		System.out.print("아이디 입력 (전체검색 Enter): ");
-		String id = sc.nextLine();
-		int postNumber = getpostNumber(id);
+
+		int postNumber = getpostNumber();
 		if (postNumber == ERROR) {
 			return;
 		}
-		System.out.print("비밀번호 입력 : ");
-		String password = sc.next();
-		if (!list.get(postNumber).getPassword()
-				.equals(password)) {
-			System.out.println("비밀번호가 일치하지 않습니다.");
-			return;
+
+		if (checkPassword(list.get(postNumber))) {
+
+			Post tmp = regpost();
+			list.get(postNumber).setTitle(tmp.getTitle());
+			list.get(postNumber).setContent(tmp.getContent());
+			list.get(postNumber).setId(tmp.getId());
+			list.get(postNumber).setPassword(tmp.getPassword());
+
+			printBar();
+			System.out.println("수정이 완료되었습니다.");
 		}
-
-		Post tmp = regpost();
-		list.get(postNumber).setTitle(tmp.getTitle());
-		list.get(postNumber).setContent(tmp.getContent());
-		list.get(postNumber).setId(tmp.getId());
-		list.get(postNumber).setPassword(tmp.getPassword());
-
-		printBar();
-		System.out.println("수정이 완료되었습니다.");
-
 	}
 
 	private void search() {
 		// TODO Auto-generated method stub
 
-		// 게시글에서 검색어가 제목 또는 내용에 들어간 리스트를 가져옴
-		// 게시글 내용을 확인할 건 지 선택.
-		// 확인하지 않겠다고 하면 종료
-		// 확인하면 게시글 번호를 입력
-		// 입력받은 게시글 번호로 객체를 생성
-		// 리스트에서 생성된 객체와 일치하는 번지를 확인해서
 		System.out.println("게시물 조회");
-		sc.nextLine();
-		System.out.print("검색할 제목이나 내용을 입력하세요 : ");
-		String searchStr = sc.nextLine();
 
-		int postNumber = getpostNumber(searchStr);
+		int postNumber = getpostNumber();
 		System.out.print("게시글 확인하시겠습니까?(y/n) : ");
 		String yesOrNo = sc.next();
 		if (yesOrNo.equals("y")) {
@@ -179,7 +170,6 @@ public class PostManager implements Program {
 			sc.nextLine();
 		}
 
-//		list.get(postNumber).increasView();
 	}
 
 	public Post regpost() {
@@ -222,10 +212,7 @@ public class PostManager implements Program {
 
 		String fileName = "src/day19/post/data.txt";
 		load(fileName);
-		System.out.println(list);
-		if (list.size() != 0) {
-			list.get(list.size() - 1).updateCount();
-		}
+
 		int menuNum;
 
 		PostType bt = PostType.REGIST;
@@ -242,13 +229,15 @@ public class PostManager implements Program {
 				e.printStackTrace();
 			}
 		} while (bt != PostType.EXIT);
-
+		save(fileName);
 	}
 
+	@Override
 	public void save(String fileName) {
 
 		try (ObjectOutputStream oos = new ObjectOutputStream(
 				new FileOutputStream(fileName))) {
+			oos.write(Post.getCount()); // count만 따로 저장
 			oos.writeObject(list);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -260,13 +249,15 @@ public class PostManager implements Program {
 
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void load(String fileName) {
 		try (
 				FileInputStream fis = new FileInputStream(fileName);
 				ObjectInputStream ois = new ObjectInputStream(
 						fis)) {
-
+			int count = ois.read(); // 따로 저장된 count만 먼저 불러옴
+			Post.setCount(count);
 			list = (List<Post>) ois.readObject();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
