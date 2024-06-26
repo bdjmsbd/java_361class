@@ -45,7 +45,7 @@ class BankBook {
 			Thread.sleep(2000); // 2초
 		} catch (InterruptedException e) {
 		}
-		System.out.println(name + " : " + this.balance + "원");
+		System.out.println(this.name + " : " + this.balance + "원");
 	}
 
 }

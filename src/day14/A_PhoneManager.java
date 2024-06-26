@@ -256,4 +256,10 @@ public class A_PhoneManager implements Program {
 		return -1;
 	}
 
+	@Override
+	public void save(String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
