@@ -11,7 +11,7 @@ public class H_Ex05 {
 	// 숫자 생성
 		HashSet<Integer> baseSet = new HashSet<>();
 		while (baseSet.size() < count) {
-			baseSet.add(myutils.MyMath.randGen(min, max));
+			baseSet.add(my.MyMath.randGen(min, max));
 		}
 		return new ArrayList<Integer>(baseSet);
 	}

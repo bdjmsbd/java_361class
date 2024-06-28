@@ -1,4 +1,4 @@
-package myutils;
+package my;
 
 class B extends A {
 

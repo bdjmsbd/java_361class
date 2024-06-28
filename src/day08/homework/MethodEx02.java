@@ -10,7 +10,7 @@ public class MethodEx02 {
 		
 		int [] numList = new int[5];
 		for (int i = 0; i < numList.length; i++) 
-			numList[i] = myutils.MyMath.randGen(1,9);
+			numList[i] = my.MyMath.randGen(1,9);
 		//numList = myutils.MyMath.numGen(1, 9, numList);
 		System.out.println(Arrays.toString(numList));
 	}

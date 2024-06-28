@@ -40,7 +40,7 @@ public class ClientManager implements Program {
 	}
 
 	@Override
-	public void runMenu(int menu) throws Exception {
+	public void runMenu(int menu) {
 
 		switch (menu) {
 			case 1:

@@ -89,13 +89,13 @@ public class D_FunctionalInterfaceEx01 {
 
 		Person p = randomPerson(() -> {
 			int min = 0, max = 10000;
-			int r = myutils.MyMath.randGen(min, max);
+			int r = my.MyMath.randGen(min, max);
 			return new Person("", "", r);
 		});
 		System.out.println(p);
 
 		int i = randomNumber(() -> {
-			return myutils.MyMath.randGen(0, 10000);
+			return my.MyMath.randGen(0, 10000);
 		});
 		System.out.println(i);
 

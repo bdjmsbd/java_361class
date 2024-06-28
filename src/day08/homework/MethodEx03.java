@@ -12,7 +12,7 @@ public class MethodEx03 {
 		int num = MethodEx01.inputNum();  //inputNum();
 		int randList[] = MethodEx01.createArray(num);  //allocateSize(num);
 
-		randList = myutils.MyMath.numGen(min, max, randList);
+		randList = my.MyMath.numGen(min, max, randList);
 		Arrays.sort(randList);
 		Arrays.sort(new int[]{1,2,3});
 		System.out.println(Arrays.toString(randList));

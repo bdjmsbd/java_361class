@@ -22,7 +22,7 @@ public class C_MethodEx05 {
 
 		int min = 1, max = 20;
 		int numList[] = new int[10];
-		numList = myutils.MyMath.numGen(min, max, numList);
+		numList = my.MyMath.numGen(min, max, numList);
 		int myNum = 10;
 
 		System.out.println(contains(myNum, numList) ? "있다" : "없다");

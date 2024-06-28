@@ -137,7 +137,7 @@ public class A_VocabularyEx01 {
 		for (int i = 0; i < wordCount - 1; i++) {
 			for (int j = 0; j < wordCount - 1 - i; j++) {
 				if (words[j].getWord().compareTo(words[j + 1].getWord()) > 0) {
-					words[j + 1] = myutils.utils.swap(words[j], words[j] = words[j + 1]);
+					words[j + 1] = my.utils.swap(words[j], words[j] = words[j + 1]);
 				}
 			}
 		}

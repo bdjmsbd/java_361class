@@ -6,7 +6,7 @@ public class B_Ex01 {
 
 	public static void run(Scanner sc) {
 
-		int randNum = myutils.MyMath.randGen(1, 100);
+		int randNum = my.MyMath.randGen(1, 100);
 		// 숫자 생성
 
 		while (true) {

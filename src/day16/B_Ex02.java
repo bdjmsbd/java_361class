@@ -13,7 +13,7 @@ public class B_Ex02 {
 
 	public static int runPlay(Scanner sc) {
 
-		int randNum = myutils.MyMath.randGen(1, 100);
+		int randNum = my.MyMath.randGen(1, 100);
 		// 숫자 생성
 //		System.out.println(randNum);
 		int score = 0;

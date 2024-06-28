@@ -23,7 +23,7 @@ public class D_Ex04 {
 
 		HashSet<Integer> lottoSet = new HashSet<>();
 		while (lottoSet.size() < 7) {
-			lottoSet.add(myutils.MyMath.randGen(1, 45));
+			lottoSet.add(my.MyMath.randGen(1, 45));
 		} // 마지막 번호는 보너스
 
 		ArrayList<Integer> lottoList = new ArrayList<>(lottoSet);

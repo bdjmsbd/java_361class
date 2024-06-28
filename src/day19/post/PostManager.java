@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -38,7 +39,7 @@ public class PostManager implements Program {
 	}
 
 	@Override
-	public void runMenu(int menu) throws Exception {
+	public void runMenu(int menu) {
 		// TODO Auto-generated method stub
 
 	}
@@ -199,7 +200,7 @@ public class PostManager implements Program {
 
 		list.get(list.size() - 1).setDate(format.format(date));
 
-//		Collections.sort(list, (o1,o2) -> o1.getDate().compareTo(o2.getDate()));
+		Collections.sort(list, (o1,o2) -> o1.getDate().compareTo(o2.getDate()));
 
 		printBar();
 		System.out.println(list.get(list.size() - 1).getNum()

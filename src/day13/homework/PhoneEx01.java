@@ -100,7 +100,7 @@ public class PhoneEx01 {
 		for (int i = 0; i < pNumCount - 1; i++) {
 			for (int j = 0; j < pNumCount - 1 - i; j++) {
 				if (pInfo[j].getName().compareTo(pInfo[j + 1].getName()) > 0) {
-					pInfo[j + 1] = myutils.utils.swap(pInfo[j], pInfo[j] = pInfo[j + 1]);
+					pInfo[j + 1] = my.utils.swap(pInfo[j], pInfo[j] = pInfo[j + 1]);
 				}
 			}
 		}
