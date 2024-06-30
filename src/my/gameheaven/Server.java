@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,48 +17,49 @@ import program.Program;
 @RequiredArgsConstructor
 public class Server implements Program {
 
-	private static List<ObjectOutputStream> oosList = new ArrayList<>();
-	private static List<ObjectInputStream> oisList = new ArrayList<>();
+	// private static List<ObjectOutputStream> oosList = new ArrayList<>();
+	// private static List<ObjectInputStream> oisList = new ArrayList<>();
+
+	// oosList 대체, oos와 userId를 동시에 받음.
+	private static List<ConnectedUser> cUserList = new ArrayList<>();
 	private static List<User> loginedUser = new ArrayList<User>();
 	private static List<User> totalUser = new ArrayList<User>();
+	private static List<Room> roomList = new ArrayList<Room>();
 	private static int userCount = 0;
-
-	private static String EXIT = "-1";
 
 	@NonNull
 	private Socket socket;
 
 	private ObjectOutputStream oos;
+	private ConnectedUser cUser;
+	private Room userRoom;
 
 	private void sendUserLogin(String message) {
-		// 클라이언트가 처음 accept 하였을 때
-		// Id와 Password를 입력하도록 요청한다.
+		// Id와 Password 입력하도록 요청한다.
+		// 비밀번호가 틀렸거나 이미 접속중인 경우에도
+		// message와 함께 재 로그인하도록 요청.
 
-		message = Tag.loginTag + Tag.splitTag + message;
-		send(message);
+		message = Tag.login + Tag.split + message;
+		send(oos, message);
 
 	}
 
-	public void send(String message) {
+	public void send(ObjectOutputStream oos, String message) {
 		if (oos == null) {
 			return;
 		}
 
 		try {
-			/* synchronized (oos) */ {
+			synchronized (oos) {
 				oos.writeUTF(message);
 				oos.flush();
 			}
 		} catch (IOException e) {
-			oosList.remove(oos);
+			cUserList.remove(cUser);
+			// oosList.remove(oos);
 			userCount--;
 		}
 
-	}
-	public String getMenu() {
-		String menu = "미니게임천국\n" + "1. 오목\n" + "2. 사탕찾기\n" + "3. 타자연습\n"
-				+ "4. 빙고\n" + "5. 전적 조회\n" + "6. 종료\n" + "메뉴 선택 : ";
-		return menu;
 	}
 
 	@Override
@@ -77,33 +77,37 @@ public class Server implements Program {
 	@Override
 	public void run() {
 
-		totalUser.add(new User("bdj", "1234"));
+		totalUser.add(new User("홍", "1234"));
+		totalUser.add(new User("둘", "1234"));
 
 		Thread t = new Thread(() -> {
 			try {
-				// ObjectInputStream ois = new ObjectInputStream(
-				// socket.getInputStream());
 				oos = new ObjectOutputStream(socket.getOutputStream());
-				oosList.add(oos);
-				// oisList.add(ois);
+				cUser = new ConnectedUser(oos);
+				cUserList.add(cUser);
 				userCount++;
+
 				sendUserLogin("");
 				while (true) {
 					ObjectInputStream ois = new ObjectInputStream(
 							socket.getInputStream());
 					String msg = ois.readUTF();
-					// if (!msg.equals(EXIT)) {
-					// // 종료
-					// }
 					readMessage(msg);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				// System.out.println(id + "님이 나갔습니다.");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				// System.out.println("해결불가 에러발생");
-				e.getMessage();
+				if (loginedUser.size() != 0) {
+					for (User tmp : loginedUser) {
+						if (tmp.getId().equals(cUser.getUserId())) {
+							System.out.println(cUser.getUserId() + "님이 나갔습니다.");
+							loginedUser.remove(tmp);
+							break;
+						}
+					}
+					cUserList.remove(cUser);
+					userCount--;
+				} else {
+					System.out.println("[클라이언트 접속 종료]");
+				}
 			}
 
 		});
@@ -113,7 +117,7 @@ public class Server implements Program {
 
 	private void readMessage(String message) {
 
-		String[] tmpMsg = message.split(Tag.splitTag);
+		String[] tmpMsg = message.split(Tag.split);
 		String tag = tmpMsg[0];
 		String msg = "";
 		// tag랑 msg를 같이 보냈다면
@@ -122,42 +126,176 @@ public class Server implements Program {
 		}
 
 		switch (tag) {
-			case Tag.loginTag :
+			case Tag.login :
 				receiveUserLogin(msg);
 				break;
-			case Tag.joinTag :
+			case Tag.join :
 				receiveUserJoin(msg);
 				break;
-			case Tag.menuTag :
-				runMenu(msg);
+			case Tag.createRoom :
+				if (tmpMsg.length != 3) {
+					// Tag::gameName::message 형태가 아니라면
+					// error
+				}
+				String gameTitle = tmpMsg[1];
+				msg = tmpMsg[2];
+				createRoom(gameTitle, msg);
 				break;
+			case Tag.roomList :
+				// 방 리스트를 client에게 보여주고
+				// 방 번호를 선택할 수 있도록 한다.
+				// 생성된 방이 없다면 방이없다고 알려주고
+				// 이전화면으로 이동, 이전으로 기능도 같이 구현
+				if (msg == "") {
+					sendRoomList();
+				} else {
+					int roomNum = Integer.parseInt(msg) - 1;
+					enterRoom(roomNum);
+				}
+				break;
+			case Tag.playing :
+				runGame(userRoom, tag, msg);
 			default :
 
 		}
 
 	}
 
-	private void runMenu(String message) {
-		// message는 String 형태의 정수로 들어온다.
-		int menu = Integer.parseInt(message);
-		switch (menu) { // 게임 이름은 가제목
-			case 1 : // A(오목)
-				// runA();
+	private void enterRoom(int roomNum) {
+		// 생성된 방에 입장합니다.
+		// 방에 play가 있다면 꽉찼다고 안내하고 다시 선택하도록 유도.
+		// 방에 play가 없다면(=player 정보가 null이라면)
+		// room 객체에 player(oos, userId)를 추가한다.
+
+		Room tmpRoom = roomList.get(roomNum);
+		String msg = "";
+		if (tmpRoom.getPlayer() != null) {
+			System.out.println("[인원이 꽉 찼습니다.]");
+			msg = Tag.roomList + Tag.split + Tag.full;
+			send(oos, msg);
+		} else { // 방에 인원이 모두 차서 게임을 시작합니다.
+			userRoom = tmpRoom;
+			userRoom.setPlayer(cUser);
+			// tmpRoom.setPlayer(cUser);
+			runGame(userRoom, Tag.start, "");
+		}
+
+	}
+
+	private void runGame(Room currentRoom, String tag, String message) {
+
+		/* 게임을 관리하는 메소드 
+		 * 게임 태그는 크게 start, playing, end로 나뉨
+		 * start : 처음 게임을 시작할 때 안내 멘트와 유저 인터페이스를 제공
+		 * playing : client의 입력 값을 토대로 result를 구하여 client에게 반환
+		 * result에는 입력한 값에 결과와 다음 차례를 넣어서 보냄
+		 * end : 게임이 끝난 경우로 승자를 안내하고, 데이터를 기록한다.
+		 * end는 server에 client에 보낼 때 사용하는 태그라 server 받을 일은 없을 듯*/
+
+		String msg = "";
+		String cTurn; // 현재 차례
+		switch (tag) {
+			case Tag.start :
+				currentRoom.gameInit();
+				msg = currentRoom.gameRun("");
+				cTurn = currentRoom.getCurrentTurn();
+
+				msg = Tag.start + Tag.split + msg + Tag.split + cTurn;
+
 				break;
-			case 2 : // B(사탕찾기)
-				// runB();
+			case Tag.playing :
+				
+				msg = currentRoom.gameRun(message);
+
+				if (currentRoom.getBaseball().getWinner() == null) {
+
+					cTurn = currentRoom.getCurrentTurn();
+					msg = Tag.playing + Tag.split + msg + Tag.split + cTurn;
+
+				} else {
+					// 승자가 정해짐
+					// 승패 기록
+					// 방 폭파시키기
+					String gameTitle = currentRoom.getGameTitle();
+					String winner = currentRoom.getBaseball().getWinner();
+					String loser = currentRoom.getBaseball().getLoser();
+					msg = Tag.end + Tag.split + winner;
+					recordScore(gameTitle, winner, loser);
+					roomList.remove(userRoom);
+					userRoom = null;
+				}
+
 				break;
-			case 3 : // C(타자연습)
-				// runC();
+
+		}
+
+		send(currentRoom.getPlayer().getOos(), msg);
+		send(currentRoom.getRoomManager().getOos(), msg);
+
+	}
+
+	public User getUserInfo(String userId) {
+		for (User tmp : totalUser) {
+			if (tmp.getId().equals(userId)) {
+				return tmp;
+			}
+		}
+		return null;
+	}
+
+	private Game getUserGameInfo(User user, String gameTitle) {
+
+		Game tmpGame = new Game(gameTitle);
+		if (user.getGames().size() == 0) {
+			user.getGames().add(tmpGame);
+			return user.getGames().get(0);
+		}
+		boolean isExist = false;
+		for (Game tmp : user.getGames()) {
+			if (tmp.getName().equals(gameTitle)) {
+				isExist = true;
+				return tmp;
+			}
+		}
+		if (!isExist) {
+			user.getGames().add(tmpGame);
+			return user.getGames().get(user.getGames().size());
+		}
+		return null;
+	}
+	private void recordScore(String gameTitle, String winner, String loser) {
+
+		User tmpUser = getUserInfo(winner);
+		Game gameTmp = getUserGameInfo(tmpUser, gameTitle);
+		gameTmp.increaseWin();
+
+		tmpUser = getUserInfo(loser);
+		gameTmp = getUserGameInfo(tmpUser, gameTitle);
+		gameTmp.increaseLose();
+
+	}
+
+	private void sendRoomList() {
+		String msg = "";
+		for (int i = 0; i < roomList.size(); i++) {
+			msg += i + 1 + ". " + roomList.get(i);
+		}
+		// 생성된 방이 없다면 Tag만 전송된다.
+		msg = Tag.roomList + Tag.split + msg;
+		send(oos, msg);
+
+	}
+
+	private void createRoom(String gameTitle, String roomTitle) {
+		// 방 생성하기
+		for (ConnectedUser tmp : cUserList) {
+			if (oos.equals(tmp.getOos())) {
+				userRoom = new Room(tmp, gameTitle, roomTitle);
+				roomList.add(userRoom);
+				System.out.println(roomList);
+				System.out.println();
 				break;
-			case 4 : // D(빙고)
-				// runD();
-				break;
-			case 5 : // 전적조회
-				break;
-			case 6 :
-				// exit(); 종료, 클라이언트 연결끊기 구현예정
-				break;
+			}
 		}
 
 	}
@@ -204,23 +342,27 @@ public class Server implements Program {
 
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	private void userLogin(String id, String password) {
 
 		// totalUser에서 아이디와 비밀번호가 일치한 지
 		// 현재 접속한 유저인 지
 		String msg = null;
+
 		if (totalUser.size() == 0) {
 			msg = "등록된 유저가 없습니다.";
 			sendUserLogin(msg);
 			return;
 
-		} else if (loginedUser.contains(id)) {
+		}
+		User loginUser = getUser(id, password);
+
+		if (loginedUser.contains(loginUser)) {
 			msg = "이미 접속한 유저입니다.";
 			sendUserLogin(msg);
 			return;
 		}
 
-		User loginUser = getUser(id, password);
 		if (loginUser == null) {
 			msg = "아이디 혹은 비밀번호가 일치하지 않습니다.";
 			sendUserLogin(msg);
@@ -233,9 +375,11 @@ public class Server implements Program {
 			// "<로그인 성공>";
 			loginedUser.add(loginUser);
 			msg = "<로그인 성공>\n";
-			msg = msg + getMenu();
-			msg = Tag.menuTag + Tag.splitTag + msg;
-			send(msg);
+			// cUser.setUserId(id); // 현재 접속한 유저의 id 저장
+			// msg = msg + getMenu();
+			cUser.setUserId(id);
+			msg = Tag.menu + Tag.split + msg;
+			send(oos, msg);
 		}
 	}
 

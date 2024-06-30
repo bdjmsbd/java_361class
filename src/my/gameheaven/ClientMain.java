@@ -31,7 +31,7 @@ public class ClientMain {
 		int port = 5001;
 
 		try {
-			// List<Socket> sockets = new ArrayList<Socket>();
+			// List1<Socket> sockets = new ArrayList<Socket>();
 			Socket socket = new Socket(ip, port);
 			System.out.println("[서버 연결 성공]");
 			Client client = new Client(socket);

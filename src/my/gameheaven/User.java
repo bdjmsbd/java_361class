@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class User implements Serializable {
-
+	// 추후 DB 대체 데이터 
+	
 	private static final long serialVersionUID = -1178561973660991852L;
 
 	@NonNull
