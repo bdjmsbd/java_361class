@@ -190,7 +190,6 @@ public class G_Manager implements Program {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		resetBoard();
 
 		List<String> select = new ArrayList<String>();

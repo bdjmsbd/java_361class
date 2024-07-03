@@ -185,9 +185,10 @@ public class Exam {
 		// 바이트 단위로 읽어오는 녀석.
 		// 객체 생성 할 때 true 값을 넘겨주면
 		// 파일이 있다면 이어서 작성한다.
-		try (FileWriter fw = new FileWriter("src/day24/ex17.txt", true)) {
+		try {
+			FileWriter fw = new FileWriter("src/day24/ex17.txt");
 			fw.write('a');
-			fw.write('\n');
+			fw.write(97);
 			fw.write('c');
 			fw.flush();
 		} catch (IOException e) {

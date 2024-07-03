@@ -1,8 +1,5 @@
 package my.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class gameInterface {
 
 	public static void playGround() {
