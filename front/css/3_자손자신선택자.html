@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>자손자식선택자</title>
+	<style>
+		/* 
+		자손 선택자 (.class .class)
+			- .조상선택자 .자손선택자, 자손선택자는 자식을 포함한다
+		자식 선택자 ().class>tag)
+			- 부모선택자>자식(태그)선택자
+		*/
+		.box2 .list {
+			/* color: red; */
+		} /* 자손은 자식을 포함 */
+
+		.box2 .item {
+			/* color: red; */
+		} /* 바로 자식 가능 */
+
+		.list>li { 
+			/* color: red; */
+		} /* 자식이 부모 */
+
+		.box2 > ul {
+			color: red;
+		} /* 자식이 부모 */
+
+		/* 같은 경우
+				.box2 > .list {
+			color: red;
+		} /* 자식이 부모 */
+		  */
+	</style>
+</head>
+
+<body>
+
+	<div class="box1">
+		<ul class="list">
+			<li class="item">1-1</li>
+			<li class="item">1-2</li>
+			<li class="item">1-3</li>
+			<li class="item">1-4</li>
+		</ul>
+
+	</div>
+
+	<div class="box2">
+
+		<ul class="list">dd
+			<li class="item">1-2</li>
+			<li class="item">2-2</li>
+			<li class="item">2-3</li>
+			<li class="item">2-4</li>
+		</ul>
+
+	</div>
+
+</body>
+
+</html>

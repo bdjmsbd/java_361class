@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<!-- style="background-color: blue;" -->
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>폼 관련 태그</title>
+</head>
+
+<body>
+
+	<!-- 
+	form태그
+	- 서버로 데이터를 전송하는 태그
+	- 속성
+		- action
+			- 서버로 보낼 주소 또는
+			- 빈 문자열로 하면 현재 URL에 데이터를 전송
+		- method
+			- 데이터 전송 방식
+			- get
+				- 기본값
+				- url에 데이터를 추가해서 전송 => 데이터가 url에 노출 => 보안이 취약
+				- 대부분이 get 방식
+				- url 뒤에 ?와 함께 사용. name명=값&name명=값 형태로 데이터를 전송
+			- post
+				- http request에 데이터를 추가해서 전송 => 데이터가 url에 노출 X => 보안
+				- 데이터가 노출되면 안되는 경우 => 회원가입, 로그인
+				- 전송할 파일이 있는 경우 => 파일 전송
+		- enctype
+			- method 속성이 post인 경우에만 사용
+			- 서버로 데이터를 보낼 때 이코딩 방식을 설정
+			- application/x-www-form-urlencoded
+				- 기본값, 서버로 보내기 전에 모두 인코딩
+			- multipart/form-data
+				- 모든 문자를 인코딩하지 않음
+				- 서버에 파일을 전송할 때 사용
+			- text/plain
+				- 공백 문자는 +로 변환, 나머지는 인코딩하지 않음
+	-->
+	<!-- 
+	fieldset 태그
+		- form 태그 안에 요소들을 묶어서 테두리 표시
+	legend 태그
+		- fieldset 태그 안에서 묶인 요소들의 대표 이름을 지정
+	-->
+	<!-- 
+	input 태그
+		- form태그 안에서 정보를 입력받는 태그
+		- 속성
+			- value : input태그의 초기값을 설정
+			- name
+				- 입력된 값을 서버로 보내기 위해 반드시 지정해야하는 속성
+				- 서버에서 name을 변수명으로 받음
+			- readonly
+				- 읽기 전용으로 값을 변경할 수 없음
+				- 서버로 데이터가 전송 됨
+			- disabled
+				- 값을 변경할 수 없음
+				- 서버로 데이터가 전송되지 않음
+			- required
+				- 필수 항목에 사용
+				- 지정된 알림이 보임
+				- 지정된 알림말고 다른 방법으로 보여주고 싶으면 reqired는 추가하지 않고 정규표현식을
+				  이용해서 활용
+			- placeholder
+				- 입력하기전 안내 문구를 표시
+				- 값이 입력되어 있으면 안내 문구가 안 보임
+			- autofocus
+				- 페이지에 왔을 때 커서를 자동으로 활성화 시킬지 결정하는 속성
+			- accept
+				- 파일을 선택할 때 보여지는 파일들의 확장자를 선택하게 하는 속성
+				- audio/* : 음원 파일만 검색
+				- vedio/* : 비디오 파일만 검색
+				- image/* : 이미지 파일만 검색
+				- *.pdf : 확장자가 pdf인 파일들만 검색
+				- image/*, *.pdf : 이미지 또는 확장자가 pdf인 파일들만 검색
+			- checked
+				- 라디오, 체크 박스에서 초기에 체크를 하고 싶을 때 사용.
+				- 미리 하나가 체크되어 있음.(기본 값 처럼.)
+			- type
+				- text : 한줄짜리 텍스트 창
+				- password : 비밀번호 입력 창
+				- hidden : 서버에 보내야 하지만 사용자에게 보여질 필요가 없는 데이터를 넣을 때 사용
+				- button : 일반 버튼, button 태그로 대체 가능
+				- submit : form태그에 입력된 정보를 서버에 전송할 때 사용하는 버튼, button 태그로 대체 가능
+				- reset : 같은 form태그 안에 있는 입력된 정보를 지우는 기능을하는 버튼, button 태그로 대체 가능
+				- checkbox : 체크 박스, 다중 선택 가능, name을 같게 해서 활용
+				- radio : 라디오 버튼, 여러개 중 하나만 선택할 때 사용, name을 같게 해서 활용
+				- file : 파일을 선택, 
+					form태그에 enctype을 multipart/formdata, method를 post로 변경해야 전송 가능
+				- image : 이미지를 가져옴. img태그로 대체 가능
+
+	label 태그
+	- 요소에 레이블을 붙이는 태그
+	- 레이블을 클릭했을 때 해당 레이블과 연결된 입력창을 선택할 때 사용
+	- 사용 방법
+		- label태그 안에 input 태그를 배치
+		- input태그에 id를 추가하고, label 태그에 for 속성을 통해 활용
+	-->
+
+	<form action="" method="get">
+		<fieldset>
+			<legend>개인 정보</legend>
+			<!-- label을 쓰면 커서가 활성화 된다. -->
+			<!-- br보다는 div를 쓰자. -->
+			<!-- span은 스타일을 위한 시각적 장식용 태그 -->
+			<div>
+				<label>
+					<!-- 전송이 필요할 때 name을 지정해준다.  -->
+					<!-- required를 설정하면 전송이 되지 않는다. -->
+					<span>
+						아이디 :
+					</span>
+					<input type="text" name="id" autofocus placeholder="아이디" required>
+				</label>
+			</div>
+			<div>
+				<label for="pw">비밀번호 : </label>
+				<!-- password type 설정으로 **로 보인다. -->
+				<input type="password" name="pw" id="pw" autofocus placeholder="비번" required>
+			</div>
+			<div>
+				<input type="hidden" name="name" value="홍길동">
+			</div>
+			<div>
+				<div>좋아하는 운동을 선택하세요.(여러개 선택 가능)</div>
+				<label> <input width="100px" height="auto" type="checkbox" name="health" value="스쿼트"> <img width="200px"
+						height="100px" src="https://cdn.pixabay.com/photo/2016/02/05/21/00/autumn-1181986_640.jpg"></label>
+				<label> <input width="100px" height="auto" type="checkbox" name="health" value="데드리프트"> <img width="200px"
+						height="100px"
+						src="https://media.istockphoto.com/id/860148388/ko/%EC%82%AC%EC%A7%84/%EB%A7%A4%EC%9D%BC-%EC%9B%8C%ED%81%AC%EC%95%84%EC%9B%83%EC%9A%A9.jpg?s=2048x2048&w=is&k=20&c=d5kvvZ3gPFiHyC-PvZ_KFrljZAdOJ_mZ9ROUs9UfLzo="></label>
+				<br>
+				<label> <input width="100px" height="auto" type="checkbox" name="health" value="벤치프레스"> <img width="200px"
+						height="100px"
+						src="https://media.istockphoto.com/id/157310199/ko/%EC%82%AC%EC%A7%84/weightlifter-benchpress-%EB%8C%80%ED%95%9C.jpg?s=2048x2048&w=is&k=20&c=BW5H14KqJ_L4PFPv4mWjZBSf717TGTOtE3lH0Dn64sg="></label>
+				<label> <input width="100px" height="auto" type="checkbox" name="health" value="밀리터리프레스"> <img width="200px"
+						height="100px"
+						src="https://media.istockphoto.com/id/1459406045/ko/%EC%82%AC%EC%A7%84/%EA%B0%95%ED%95%9C-%EB%82%A8%EC%9E%90-%EC%98%A4%EB%B2%84-%ED%97%A4%EB%93%9C-%EB%B0%94%EB%B2%A8-%EB%B0%8F-%EC%B2%B4%EC%9C%A1%EA%B4%80-%EC%9A%B4%EB%8F%99-%EC%9A%B4%EB%8F%99-%EB%B0%8F-%EC%8A%A4%ED%8F%AC%EC%B8%A0-%ED%81%B4%EB%9F%BD%EC%9D%98-%ED%94%BC%ED%8A%B8%EB%8B%88%EC%8A%A4-%ED%9B%88%EB%A0%A8-%EC%B2%AD%EB%85%84-%ED%8F%AC%EC%BB%A4%EC%8A%A4-%EB%B3%B4%EB%94%94%EB%B9%8C%EB%8D%94-%EB%B0%8F-%ED%8C%8C%EC%9B%8C-%ED%94%84%EB%A0%88%EC%8A%A4-%EC%97%AD%EB%8F%84-%EB%8F%84%EC%A0%84-%EB%B0%8F-%EA%B7%BC%EC%9C%A1-%EB%8F%99%EA%B8%B0-%EB%B6%80%EC%97%AC-%EB%B0%8F-%EC%97%90%EB%84%88%EC%A7%80.jpg?s=2048x2048&w=is&k=20&c=nZvky8rXcgXopCbn0Jnw3IAr3eAb0C4vXSi157pVknU="></label>
+			</div>
+
+			<div>
+				<div>성별을 선택하세요.</div>
+				<!-- radio 박스는 같은 name으로 묶어 준다. -->
+				<label>
+					<input type="radio" name="gender" value="남성" checked> 남성
+				</label>
+				<label>
+					<input type="radio" name="gender" value="여성"> 여성
+				</label>
+			</div>
+
+			<div>
+				<input type="submit" value="전송">
+				<input type="reset" value="초기화">
+				<input type="button" value="일반 버튼">
+			</div>
+		</fieldset><br>
+
+		<fieldset>
+			<legend>기타</legend>
+			<div>
+				<label>
+					<!-- accept="image/*,vedio/*" -->
+					<input type="file" name="file" multiple accept="video/*">
+				</label>
+			</div>
+			<div>
+				<!-- input:image는 image 선택이 가능하다 <클릭 활용이 가능>, img는 그냥 표시 -->
+				<input width="100px" height="auto" type="image"
+					src="https://cdn.pixabay.com/photo/2023/05/02/14/15/british-shorthair-7965411_1280.jpg">
+					&nbsp;&nbsp;&nbsp;
+				<img width="100px" height="auto"
+					src="https://cdn.pixabay.com/photo/2023/05/02/14/15/british-shorthair-7965411_1280.jpg">
+			</div>
+		</fieldset>
+	</form><br>
+	<fieldset>
+		<!-- 
+		input 태그
+			- 속성
+				- type
+					- color : 색상 16진수 표현
+					- date/datetime/datetime-local/time/month/week : 날짜 관련 속성
+					- number : 숫자만 입력하는 창. 위/아래 화살표가 있어서 화살표를 통해 증감, 자주 쓰지 않음
+					- range : 슬라이드 막대를 통해 숫자 조절
+					- search : 검색창. 입력값이 있으면 우측에 x버튼이 생김. 클릭하면 검색어 초기화
+					- tel : 전화번호로 인식
+					- email/url : 이메일/url을 입력함. 값이 있는데 이메일/url 형식에 맞지 않으면 전송하지 않음
+	-->
+		<form action="">
+			<div>
+				<div>좋아하는 색상 선택</div>
+				<input type="color" name="color">
+			</div>
+			<div>
+				<input type="number" name="num" placeholder="0" min="0" max="100">
+				<br>
+				0 <input type="range" name="range" min="0" max="10" step="2"> 10
+			</div>
+			<div>
+				<input type="search" name="search" placeholder="검색어 작성">
+				<br>
+				<input type="tel" name="tel" placeholder="전화번호">
+				<br>
+				<input type="email" name="email" placeholder="이메일">
+				<br>
+				<input type="url" name="url" placeholder="URL">
+			</div>
+			<div>
+				<input type="submit" value="전송">
+			</div>
+			<div>
+				<input type="date" name="date">
+				<br>
+				<input type="datetime-local" name="datetime">
+				<br>
+				<input type="time" name="time">
+			</div>
+			<div>
+				<input type="submit" value="전송">
+			</div>
+		</form>
+	</fieldset>
+</body>
+
+</html>

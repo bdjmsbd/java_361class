@@ -1,0 +1,50 @@
+<!-- ctrl + / => 자동으로 주석추가 -->
+<!-- ! + enter => 기본틀 자동 완성 -->
+<!-- alt + shift + f => 자동 줄정렬 -->
+<!-- doctype => html5 표준 문서임을 의미 -->
+<!DOCTYPE html>
+<!-- 
+	html 태그 : html 문서
+	- lang 속성 : 언어 지정 
+		- 검색 엔진에서 언어를 제외하거나 포함할 때 사용
+ -->
+<html lang="ko">
+
+<!-- 
+		head 태그 : 화면에는 보이지 않지만 문서와 관련된 정보를 모아둔 태그
+			- meta 태그 : 문서 설정을 지원
+			- link, script 태그 : css와 js를 연결
+			- title 태그 : 웹 타이틀을 지정
+-->
+
+<head>
+	<!-- 
+		meta 태그
+			- 문서 설정을 지원
+			- 화면 비율, 검색 키워드, 작성자, 요약, 썸네일 이미지 등을 설정
+			- charset : 속성
+				- 문서의 인코딩 방식을 설정
+			- name : 화면 비율을 설정
+				- "viewport" content="width=device-width, initial-scale=1.0"
+					- 화면 비율을 설정하는데 너비를 기기의 너비를 기준으로 1배로 해서 설정
+					- 모바일에서 작게 보이는 걸 방지, 작은 화면에서도 동일하게 볼 수 있도록 설정
+			- title : 웹 페이지 제목
+	 -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Html 기본 구조</title>
+</head>
+<!-- 
+	body 태그
+		- 화면에서 보여지는 부분
+		- 다양한 태그를 이용해서 화면을 구성
+-->
+
+<body>
+	<!-- html은 엔터와 연속된 공백을 하나의 공백으로 처리 함 -->
+	안녕하세요.<br>
+	welcome to html<br>
+	
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>선택자 예제</title>
+	<style>
+		/* 모든 메뉴가 빨간 색  [=> 강사 답 .menu-list{}] */
+		[class|=menu] {
+			/* color: red; */
+		}
+
+		/* nav 태그의 메뉴들만 빨간 색으로 */
+		nav [class|=menu] {
+			/* color: red; */
+		}
+
+		/* 메뉴1만 글씨가 빨갛도록 수정 */
+		.first {
+			/* color: red; */
+		}
+
+		span.menu-link.first {
+			color: red;
+		}
+
+
+		/* div 태그에 있는 메뉴2와 메뉴3에 글자색이 빨간색이 되도록 선택자를 선택해서 적용 */
+		div [class|=menu-link]{
+			/* color: red; */
+		}
+
+		/* 강사 답안  	div .menu-item+.menu-item>.menu-link{} */
+
+
+	</style>
+</head>
+
+<!-- span은 기능이 없다 inline tag이다. -->
+<body>
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<span class="menu-link first">메뉴1</span>
+			</li>
+			<li class="menu-item">
+				<span class="menu-link">메뉴2</span>
+			</li>
+			<li class="menu-list">
+				<span class="menu-link">메뉴3</span>
+			</li>
+		</ul>
+	</nav>
+	<div>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<span class="menu-link first">메뉴1</span>
+			</li>
+			<li class="menu-item">
+				<span class="menu-link">메뉴2</span>
+			</li>
+			<li class="menu-list">
+				<span class="menu-link">메뉴3</span>
+			</li>
+		</ul>
+	</div>
+
+
+
+</body>
+
+</html>
