@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>일반 구조 선택자</title>
+	<style>
+		/* 
+		일반 구조 선택자
+			- 요소 종류 상관없이 형제 요소들 중 몇 번째 요소 인지를 선택
+			:first-child = 첫 번째 요소
+			:last-child = 마지막 형제 요소
+			:nth-child(숫자) : 앞에서 숫자 번 째 요소
+			:nth-last-child(숫자) : 뒤에서 숫자 번 째 요소
+			:nth-child(2n) : 앞에서 2n번 째 요소 전체 			
+		형태 구조 선택자
+			- 선택자(태그만 가능)와 일치하는 형제 요소들 중 몇 번째 요소 인지를 선택하는 선택자
+			선택자:first-of-type = 선택자와 일치하는 형제 요소들 중에서 [첫 번째 요소]
+			선택자:last-of-type = 선택자와 일치하는 형제 요소들 중에서 [마지막 형제 요소]
+			선택자:nth-of-type(숫자) : 선택자와 일치하는 형제 요소들 중에서 [앞에서 숫자 번 째 요소]
+			선택자:nth-last-of-type(숫자) : 선택자와 일치하는 형제 요소들 중에서 [뒤에서 숫자 번 째 요소]
+			선택자:nth-of-type(2n) : 선택자와 일치하는 형제 요소들 중에서 [앞에서 2n번 째 요소 전체 ]
+			*/
+		.box1>:nth-child(2n) {
+			/* background-color: aqua; */
+		}
+
+		.box1>:nth-child(2n-1) {
+			/* background-color: yellow; */
+		}
+
+		.box1>:nth-last-child(1) {
+			/* background-color: yellow; */
+		}
+
+		/* .box1>:first-of-type */
+		.box1>div:first-of-type {
+			/* background-color: aqua; */
+		}
+
+		.box1>:last-of-type {
+			/* background-color: yellow; */
+		}
+
+		.box1>div:nth-of-type(2n-1) {
+			background-color: yellow;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="box1">
+		<p>안녕하세요 p</p>
+		<div>안녕하세요 div</div>
+		<div>안녕하세요 div</div>
+		<p>안녕하세요 p</p>
+		<p>안녕하세요 p</p>
+		<ul>묶음
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<ul>묶음
+			<li>a</li>
+			<li>b</li>
+		</ul>
+	</div>
+
+</body>
+
+</html>
