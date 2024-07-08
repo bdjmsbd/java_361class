@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>분할예제 3등분</title>
+
+	<style>
+		.container {
+			border: 10px solid black;
+		}
+		.container::after{
+			clear: both; display: block;
+			content: '';
+		}
+
+		.box1,
+		.box2,
+		.box3 {
+			height: 500px;
+			width: calc((100% - 20px) / 3);
+			float: left;
+			border: 10px solid red;
+			box-sizing: border-box;
+		}
+
+		.box1 {
+			border-color: blue;
+		}
+
+		.box2 {
+			border-color: red;
+			margin-left: 10px;
+		}
+
+		.box3 {
+			float: right;
+			border-color: green;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+	</div>
+
+</body>
+
+</html>

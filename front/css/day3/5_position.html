@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Position, 요소를 배치하는 방식</title>
+	<style>
+		/*  
+		position
+			- 요소를 배치하는 방식을 지정하는 속성
+			- static(default), relative, absolute, fixed 중 택
+
+			relative
+				- 요소의 상대적인 위치를 계산해서 배치
+				- top, left, right, bottom 속성을 이용해서 
+					기준 위치에서 지정한 크기만큼 이동한 위치에 요소를 배치
+				- absoulute의 기준 위치가 된다.
+				%%%%%% 다른 요소에 영향을 주기에 잘 사용하지 않음. 
+				
+			absolute
+				- 기준 요소를 기준으로 위치를 조절해서 배치
+				- 기준 요소는 position:relative가	있는 
+					가장 가까운 조상 요소가 된다.
+				- 기준 요소가 없다면 (=> 조상중에 position:relative가 없다면) 브라우저를 기준으로 배치 
+				- top, left, right, bottom 속성을 이용해서 
+					기준 위체에서 지정한 크기만큼 이동한 위치에 요소를 배치한다. 
+				- width/height가 지정되어 있지 않으면 컨텐츠의 크기만큼 너비/높이가 계산됨. 
+				- 이때 left와 right를 이용해서 width(너비)를 계산할 수 있다.
+				- 마찬가지 top과 bottom을 이용해서 heigth(높이)를 계산
+				- absolute가 적용된 요소를 부모 요소의 높이에 영향을 주지 않음. 
+
+			fixed
+				- 요소를 브라우저를 기준으로 위치를 고정
+				- <맨 위로>, <특정 위치에 광고 고정> 같은 기능에 사용.
+				- top, left, right, bottom을 이용
+		*/
+
+		.container-relative .box,
+		.container-absolute .inner-box {
+			/* 박스들을 한 라인에 여러개 배치하기 위해 */
+			display: inline-block;
+			/* 박스들이 테두리 포함 100x100이 되게 하기 위해 */
+			width: 100px;
+			height: 100px;
+			box-sizing: border-box;
+			/* 테두리 */
+			border: 3px solid black;
+			/* 글자 가운데 배치(위아래, 좌우) */
+			line-height: 90px;
+			text-align: center;
+			/* 글자 꾸밈 */
+			font-weight: bold;
+			font-size: 20px;
+			/* position:realtive 선언, 미 선언시 아래 style 적용이 안됨 */
+			position: relative;
+		}
+
+		.box1 {
+			top: 10px;
+		}
+
+		.box2 {
+			left: 10px;
+		}
+
+		.box3 {
+			top: -10px;
+			left: -10px;
+		}
+
+		.box4 {
+			bottom: 20px;
+		}
+
+		.box5 {
+			right: -10px;
+		}
+
+		/* 다음 예제 여백 */
+		.container-relative {
+			margin-bottom: 50px;
+		}
+
+		.container-absolute .box {
+			position: relative;
+		}
+
+		.container-absolute .inner-box {
+			position: absolute;
+			top: 100px;
+			left: 100px;
+		}
+
+		.container-absolute .inner-box2 {
+			position: absolute;
+			border: 3px solid black;
+			height: 100px;
+			left: 0;
+			right: 0;
+			top: 250px;
+		}
+
+		.box-up {
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			border: 3px solid black;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			border-radius: 50%;
+			background-color: white;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container-relative">
+		<div class="box box1">H</div>
+		<div class="box box2">E</div>
+		<div class="box box3">L</div>
+		<div class="box box4">L</div>
+		<div class="box box5">O</div>
+	</div>
+
+	<div class="container-absolute">
+		<div class="box">
+			<div class="inner-box">1</div>
+			<div class="inner-box2">1-2</div>
+		</div>
+		<div class="inner-box">2</div>
+	</div>
+
+	<div>
+		<div style="height: 100px;">div</div>
+	</div>
+	<div class="box-up">up</div>
+
+
+
+
+
+
+
+</body>
+
+</html>

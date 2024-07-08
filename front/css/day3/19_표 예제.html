@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>표만들기 예제</title>
+	<style>
+		.table1 {
+			width: 100%;
+			/* border: 1px solid black; */
+			border-collapse: collapse;
+			table-layout: fixed;
+			caption-side: top;
+			/* top은 default */
+
+		}
+
+		.table1 th:first-of-type {
+			width: 50px;
+		}
+
+		.table1 tr {
+			border: 1px solid black;
+			height: 50px;
+			border-width: 1px 0px;
+
+		}
+
+		tr+tr:hover {
+			background-color: orange;
+		}
+
+		/* .table1{
+			border-width: 1px 0px;
+		} */
+
+
+
+
+		/* 강사 답안 */
+		.table3 {
+			/* border:1px solid black */
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		.table3 tr {
+			border: 1px solid black;
+			border-width: 1px 0px;
+		}
+
+		.table3 tbody tr:hover {
+			background-color: rgb(223, 230, 211);
+		}
+	</style>
+</head>
+
+<body>
+	<table class="table1">
+		<caption></caption>
+
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>테스트입니다.</td>
+			<td>abc123</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>공지사항</td>
+			<td>관리자</td>
+			<td>100</td>
+		</tr>
+	</table>
+
+	<table class="table3">
+		<caption>강사 답안</caption>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>2</td>
+				<td>테스트입니다.</td>
+				<td>abc123</td>
+				<td>1</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>공지사항</td>
+				<td>관리자</td>
+				<td>100</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+
+</html>

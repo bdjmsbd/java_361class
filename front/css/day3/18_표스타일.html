@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>표스타일</title>
+	<style>
+		/*  
+		caption-side
+			- 캡션 위치. top / bottom
+		border-collapse
+			- td/th의 테두리와 table의 테두리를 각각 혹은 합쳐서 보여주는 것을 결정 
+			- seperate 각각(기본값), collapse(합침)
+		table-layout
+			- 첫 tr 태그의 td/th의 너비가 지정된 경우.
+			- 고정으로 할 지 비례로 커지게 할 지 결정
+			- auto(기본 값), fixed
+		*/
+		.table1 {
+			width: 100%;
+			border: 1px solid black;
+			border-collapse: collapse;
+			table-layout: fixed;
+			caption-side: top;
+			/* top은 default */
+		}
+
+		.table1 th:first-of-type {
+			width: 50px;
+		}
+
+		.table1 td,
+		.table th {
+			border: 1px solid black;
+			height: 50px;
+		}
+
+		.table2 {
+			width: 100%;
+			border: 1px solid black;
+			table-layout: fixed;
+			caption-side: bottom;
+			empty-cells: hide;
+
+			border-spacing: 10px 20px;
+		}
+
+		.table2 th:first-of-type {
+			width: 50px;
+		}
+
+		.table2 td,
+		.table th {
+			border: 1px solid black;
+			height: 50px;
+		}
+	</style>
+</head>
+
+<body>
+	<table class="table1">
+		<caption>게시글</caption>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>테스트입니다.</td>
+			<td>abc123</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>공지사항</td>
+			<td>관리자</td>
+			<td>100</td>
+		</tr>
+	</table>
+
+	<table class="table2">
+		<caption>게시글</caption>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>조회수</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>테스트입니다.</td>
+			<td>abc123</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>공지사항</td>
+			<td>관리자</td>
+			<td></td>
+		</tr>
+	</table>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

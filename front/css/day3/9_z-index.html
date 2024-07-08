@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>z-index</title>
+	<style>
+	/*  
+	z-index
+		- 요소가 겹칠 때 어떤 요소를 위로 보낼 지 결정하는 속성
+		- 숫자가 클수록 위로 올라감
+		- 별도로 index 설정을 안하면 body에서 마지막에 선언된 부분이 제일 위로 온다.
+		
+	*/
+	.box{
+		width: 150px; height: 150px;
+		border: 3px solid black; position:absolute;
+		background-color: white;
+	}
+	.box1{ top:0px; left: 0px;}
+	.box2{ top:50px; left: 50px;}
+	.box3{ top:100px; left: 100px;}
+
+	</style>
+</head>
+<body>
+	<div class="box box1">1</div>
+	<div class="box box2">2</div>
+	<div class="box box3">3</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
