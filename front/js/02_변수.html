@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>변수</title>
+</head>
+<body>
+	<script>
+		/*
+		변수 선언 방법 
+		1. var
+			- 선언한 위치에 상관없이 사용이 가능하다
+			- 중복 선언이 가능
+		2. let
+			- 선언한 다음에 사용이 가능하다
+			- 중복 선언이 불가능
+		3. const(상수)
+
+		타입 선언을 따로 하지않아도 실행이 된다. default가 var 인듯?
+		=> var를 선언하지 않으면 전역 변수가 되어버림. 함수나 스코프가 제한된 경우를 위해 타입 선언을 하는 습관을 들이자.
+
+		*/
+		num = 10;
+		console.log(num);
+		var num;
+
+		let num2;
+		num2 = 10;
+		console.log(num2);
+		//let num2;//중복 선언이 불가능
+
+
+		const PI = 3.141592;
+		//PI = 10;
+		console.log(PI);
+
+		let num3;
+		console.log(num3);
+		// 초기화 해주지 않아도 출력 가능, 에러가 발생하지 않음.
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>메뉴 예제</title>
+	<!-- 3등분 되어 있고, 클릭하는 이동할 수 있는 메뉴로 구현. -->
+	 
+	<style>
+		.container {
+			/* border: 3px solid black; */
+			margin: 100px;
+			background-color: rgb(229, 255, 246);
+		}
+
+		.container::after {
+			clear: both;
+			display: block;
+			content: '';
+		}
+
+		.box {
+			box-sizing: border-box;
+			height: 200px;
+			width: calc(100% / 3);
+			float: left;
+			border: 3px solid black;
+
+			font-size: 30px;
+			line-height: 200px;
+			text-align: center;
+		}
+
+		.box.box2 {
+			border-width: 3px 0px;
+		}
+
+		.box:hover{
+			background-color: rgb(255, 235, 197);
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<a href="" class="box box1">메뉴1</a>
+		<a href="" class="box box2">메뉴2</a>
+		<a href="" class="box box3">메뉴3</a>
+	</div>
+
+
+</body>
+
+</html>

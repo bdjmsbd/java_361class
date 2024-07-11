@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>투명도 </title>
+	<style>
+		/* 
+		opacity
+			- 요소를 투명 또는 불투명하게 만드는 속성
+			- 0~1사이의 값
+			- 0은 투명, 1은 불투명
+			- 요소에 투명도를 적용하면 자식요소들은 부모 요소의 투명도가 적용
+		*/
+		.box {
+			position: absolute;
+			width: 400px;
+			height: 200px;
+			border: 3px solid black;
+			top: 0;
+			left: 0;
+			background: #fff;
+			font-size: 30px;
+			line-height: 200px;
+			text-align: center;
+			
+		}
+
+		.box2 {
+			top: 50px;
+			left: 50px;
+			background: #f00;
+			/* <예제 적용 포인트> */
+			opacity: 0.5;
+		}
+		
+		.box3{ top:300px; left: 300px; background: rgba(255, 0, 0, 0.1);}
+
+		/* opacity로 바로 적용하면 글씨까지 흐려진다. 
+		그래서 글씨를 유지하려면 box3 처럼 수정 */
+	</style>
+</head>
+
+<body>
+	<div class="box box1">안녕하세요.</div>
+	<div class="box box2">만나서 반갑습니다.</div>
+
+	<div class="box box3">
+		<div class="inner-box">만나서 반갑습니다.</div>
+	</div>
+</body>
+
+</html>

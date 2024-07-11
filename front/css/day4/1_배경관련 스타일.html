@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Background Style</title>
+	<style>
+		/*
+		background-color
+			- 배경색 지정
+		background-clip
+			- 배경 범위 조절
+			- border-box : 테두리까지 적용
+			  => 테두리에 색이 있다면 padding과 차이가 없어보임. 투명으로 테두리를 설정
+			- padding-box : 패딩까지 적용
+			- content-box : 컨텐츠만 적용
+		*/
+
+		/* .box1{
+			width: 300px; height: 300px; padding: 50px;
+			border: 20px solid transparent;
+			background-color: gray;
+			background-clip: border-box;
+		} */
+
+		/*  
+		background-image
+			배경 이미지, url을 사용
+
+		background-size
+			- auto : 원본크기
+			- contain : 요소가 이미지 안으로 들어갈 수 있게 확대/축소
+			- cover : 요소를 이미지가 덮을수 있도록 확대/축소
+			- px, % : 지정된 px, %만큼 확대/축소
+
+		background-repeat
+			- 배경 이미지를 반복할지 말지를 결정하는 속성
+			- 요소가 이미지보다 큰 경우 남은 부분을 반복할지를 결정
+			- repeat : 수평/수직 반복
+			- repeat-x : 수평 반복
+			- repeat-y : 수직 반복
+			- no-repeat : 반복 X
+		background-position
+			- 배경 이미지 위치 조절
+			- left/center/right : 수평 위치 조절
+			- top/center/ bottom : 수직 위치 조절
+			- px, % : px,%만큼 수평/수직 위치 조절 (ex> background-position: 100px 100px)
+		background-origin
+			- 배경 이미지를 배치할 때 기준을 정하는 속성
+			- border-box : 테두리 기준 배치
+			- padding-box : 패딩 기준 배치
+			- content-box : 컨텐츠 기준 배치
+		background-attachment
+			- 웹페이지가 위아래로 움직여도 배경은 운직이지 않게 고정하는 속성
+			- scroll : 기본값, 배경 이미지가 움직임
+			- fixed : 배경 이미지가 움직이지 않게 고정
+		*/
+
+		/* .box2 {
+			width: 300px;
+			height: 300px;
+			padding: 50px;
+			border: 20px solid transparent;
+			background-color: gray;
+			background-clip: border-box;
+			background-image: url(https://cdn.pixabay.com/photo/2024/02/17/15/14/crows-8579540_1280.jpg);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			background-origin: padding-box;
+		} */
+
+		/* .box3 {
+			width: 1000px;
+			height: 1500px;
+			padding: 50px;
+			background-repeat: repeat;
+			background-image: url(https://cdn.pixabay.com/photo/2024/02/17/15/14/crows-8579540_1280.jpg);
+			background-attachment: fixed;
+		} */
+
+		/* 
+		- color image repeat attachment position clip origin size를 한번에 쓰는 속성 
+		- position과 size를 함께 사용하는 겨우 position / size 순으로 작성
+		*/
+		.box4{
+			width: 1000px; height: 1000px; padding: 50px;
+			border: 20px solid transparent;
+			margin-top: 50px;
+			background: gray url(https://cdn.pixabay.com/photo/2024/02/17/15/14/crows-8579540_1280.jpg)
+				no-repeat left top / contain border-box;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<div class="box4"></div>
+
+
+
+
+
+
+</body>
+
+</html>

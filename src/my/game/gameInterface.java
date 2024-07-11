@@ -92,11 +92,4 @@ public class gameInterface {
 		//
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		playGround3();
-		G_Manager gm = new G_Manager();
-		gm.run();
-	}
-
 }
