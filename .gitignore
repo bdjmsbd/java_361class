@@ -8,3 +8,4 @@
 java_bdj\.gitignore
 
 manifest.mf
+/java_bdj/

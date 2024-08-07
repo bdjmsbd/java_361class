@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlet1.model.vo.Person;
+
 @WebServlet("/")
 public class Main extends HttpServlet {
 
@@ -15,6 +17,12 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Hello. 안녕하세요. 뚜데끼야");
+		
+		request.setAttribute("name", "홍길동");
+		
+		Person p = new Person("임꺽정", 20);
+		request.setAttribute("person", p);
+		
 		request.getRequestDispatcher("/WEB-INF/views/main.jsp").forward(request, response);
 	}
 
