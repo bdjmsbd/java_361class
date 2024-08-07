@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>선택 예제</title>
+	<script src="../../static/js/jquery.min.js"></script>
+
+	<style>
+		.box {
+			width: 150px;
+			height: 50px;
+			border: 3px solid black;
+			line-height: 50px;
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		.box-list {
+			display: flex;
+			justify-content: space-evenly;
+		}
+
+		.box-check-list {
+			text-align: center;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="box-list">
+			<div class="box box1">dd</div>
+			<div class="box box2"></div>
+			<div class="box box3"></div>
+		</div>
+		<div class="box-check-list" name="list" id="list">
+			<label><input type="checkbox" name="sports" value="야구" id="ck1">야구</label>
+			<label><input type="checkbox" name="sports" value="농구" id="ck2">농구</label>
+			<label><input type="checkbox" name="sports" value="축구" id="ck3">축구</label>
+			<label><input type="checkbox" name="sports" value="배구" id="ck4">배구</label>
+			<label><input type="checkbox" name="sports" value="골프" id="ck5">골프</label>
+		</div>
+	</div>
+	<script>
+		var list = [];
+
+		$('#ck1').change(function () {
+			if ($('#ck1').is(":checked")) {
+				list.push($('#ck1').val());
+				console.log(list)
+			} else {
+				list.shift($('#ck1').val())
+				console.log(list)
+			}display(list) 
+		})
+		$('#ck2').change(function () {
+			if ($('#ck2').is(":checked")) {
+				list.push($('#ck2').val());
+				console.log(list)
+			} else {
+				list.shift($('#ck2').val())
+				console.log(list)
+			}display(list) 
+		})
+		$('#ck3').change(function () {
+			if ($('#ck3').is(":checked")) {
+				list.push($('#ck3').val());
+				console.log(list)
+			} else {
+				list.shift($('#ck3').val())
+				console.log(list)
+			}display(list) 
+		})
+		$('#ck4').change(function () {
+			if ($('#ck4').is(":checked")) {
+				list.push($('#ck4').val());
+				console.log(list)
+			} else {
+				list.shift($('#ck4').val())
+				console.log(list)
+			}display(list) 
+		})
+		$('#ck5').change(function () {
+			if ($('#ck5').is(":checked")) {
+				list.push($('#ck5').val());
+				console.log(list)
+			} else {
+				list.shift($('#ck5').val())
+				console.log(list)
+			}display(list) 
+		})
+
+		
+
+		function display(list) {
+			$('.box1').text('');
+			$('.box2').text('');
+			$('.box3').text('');
+			$('.box1').text(list[0])
+			$('.box2').text(list[1])
+			$('.box3').text(list[2])
+		}
+
+		
+
+
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<!--  
+	1. 태그의 속성으로 이벤트를 등록
+		- on이벤트명="실행할 코드" (ex. onclick, onchange ...)
+	-->
+	<button onclick="alert('이벤트 등록 1')">이벤트 등록 방법 1</button>
+	<button id="btn1">이벤트 등록 방법 2</button>
+	<button id="btn2">이벤트 등록 방법 3</button>
+	<hr>
+
+	<input type="text" onchange="alertText(this)">
+	<script>
+
+	/*
+	2. 요소.on이벤트명 = 함수;
+	3. 요소.addEventListener('이벤트명', 함수, is캡처링)
+		- 캡처링이 true이면 캡처링, false이면 버블링
+		- 캡처링 기본값은 false. 
+		- 캡처링은 이벤트 발생 시, 발생한 이벤트가 자식 요소들에게 전달
+		- 버블링은 발생한 이벤트가 부모 요소들에게 전달 
+	*/
+
+	btn1.onclick = function(){
+		alert('이벤트 등록 2');
+	}
+	btn1.onclick = ()=>{
+		alert('이벤트 등록 2');
+	}
+
+	var btn2 = document.getElementById('btn2');
+	btn2.addEventListener('click',function(){alert('이벤트 등록 3')})
+
+	/*
+	change : 입력하는 동안 이벤트가 발생, 엔터 등으로 비활성화되고 값이 이전과 다르면 이벤트 발생
+	input : 입력이 될 때 마다 발생
+	keyup(keydown) : 키보드를 눌렀다 땟을 때(누를 때+ 누르고 있을 때)
+	keypress : 누르는 중에 이벤트 발생 alt, ctrl 같은 특수키는 발생하지 않음. 
+	click : 클릭했을 때 이벤트 발생
+	*/
+	
+	function alertText(obj){
+			console.log(obj)
+			let text = obj.value;
+			alert(text);
+		}
+
+
+
+	</script>
+
+
+</body>
+
+</html>

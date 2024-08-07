@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>탭 박스 예제</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			color: #000;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		.menu-list {
+			display: flex;
+		}
+
+		.menu-item {
+			width: 100%;
+		}
+
+		.menu-item~.menu-item {
+			margin-left: -3px;
+		}
+
+		.menu-link {
+			display: block;
+			border: 3px solid black;
+			line-height: 50px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 20px;
+		}
+
+		.menu-item:hover {
+			background-color: yellow;
+		}
+
+		.box {
+			height: 400px;
+			display: none;
+		}
+
+		.box1 {
+			background: yellow;
+		}
+
+		.box2 {
+			background: red;
+		}
+
+		.box3 {
+			background: blue;
+		}
+
+		.display {
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<nav>
+		<ul class="menu-list">
+			<li class="menu-item">
+				<a href="#" class="menu-link" id="menu1">메뉴1</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link" id="menu2">메뉴2</a>
+			</li>
+			<li class="menu-item">
+				<a href="#" class="menu-link" id="menu3">메뉴3</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="box box1 display" id="box1"></div>
+	<div class="box box2" id="box2"></div>
+	<div class="box box3" id="box3"></div>
+
+
+<script>
+	const menu1 = document.getElementById("menu1");
+	const menu2 = document.getElementById("menu2");
+	const menu3 = document.getElementById("menu3");
+	const box1 = document.getElementById("box1");
+	const box2 = document.getElementById("box2");
+	const box3 = document.getElementById("box3");
+
+	menu1.addEventListener('click', () => {
+		if(!box1.classList.contains('display')){
+			box1.classList.add('display');
+			box2.classList.remove('display');
+			box3.classList.remove('display');
+			}
+	});
+
+	menu2.addEventListener('click', () => {
+		if(!box2.classList.contains('display')){
+			box1.classList.remove('display');
+			box2.classList.add('display');
+			box3.classList.remove('display');
+			}
+	});
+
+	menu3.addEventListener('click', () => {
+		if(!box3.classList.contains('display')){
+			box1.classList.remove('display');
+			box2.classList.remove('display');
+			box3.classList.add('display');
+			}
+	});
+
+
+
+
+</script>
+</body>
+</html>

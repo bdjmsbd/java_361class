@@ -20,7 +20,7 @@ public class overlappingLine {
 		// 4. a, c 마찬가지로 비교
 		// 5. 마찬가지 b, a 비교
 		// 6. b, c -> c, a -> c b 모두 비교
-
+		
 		int[][] lines = new int[3][2];
 		lines[0][0] = 0;
 		lines[0][1] = 1;

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머</title>
+	<script src="../../static/js/jquery.min.js"></script>
+	<style>
+		.box-timer {
+			border: 2px solid black;
+			padding: 30px;
+			font-size: 30px;
+			text-align: center;
+			width: 500px;
+			margin: 0 auto;
+			box-sizing: border-box;
+		}
+
+		.box-btns {
+			width: 500px;
+			margin: 10px auto;
+		}
+
+		.box-btns::after {
+			clear: both;
+			display: block;
+			content: none;
+		}
+
+		.btn {
+			width: 45%;
+			margin: 10px auto;
+			border: 2px solid black;
+			/* 커서만들기 */
+			cursor: pointer; 
+		}
+
+		/* 박스위치조정, 안쓰면 바짝 붙음 */
+		.btn-stop {
+			float: right;
+		}
+
+		/* .btn-start {
+			float: left;
+		} */
+	</style>
+</head>
+
+<body>
+	<div class="box-timer">
+		00:00:00
+	</div>
+	<div class="box-btns">
+		<button class="btn btn-start">시작</button>
+		<button class="btn btn-stop">중지</button>
+	</div>
+
+	<script>
+
+		var id;
+		var m = 0;
+		var s = 0;
+		var h = 0;
+		
+		$('.btn-start').click(function(){
+			if(id != null) {
+				return;
+			}
+			id = setInterval(() => {
+				if (s == 60) {
+					m++; s = 0;
+				}
+				if (m == 60) {
+					h++; m = 0;
+				}
+				// $('.box-timer').text(getTime(h, m, s));
+				var str = String(h).padStart(2, '0');
+				str += ":" + String(m).padStart(2, '0');
+				str += ":" + String(s++).padStart(2, '0');
+				// console.log(str)
+				print(str);
+			}, 1000);
+		})
+
+		function print(date) {
+			// console.log($('.box-timer').text());
+			// 단순 글자 읽어오기, 글자읽기, 글자 읽기
+			$('.box-timer').text(date);
+		}
+
+		$('.btn-stop').click(function(){
+			if(id){
+				clearInterval(id);
+			}
+		})
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>표준 속성이 아닌 속성에 접근하는 방법 (Attribute)</title>
+</head>
+<body>
+	<button id="btn" data-num="10">버튼</button>
+
+	<script>
+		var btn = document.getElementById('btn');
+		// btn.data-num 표준 속성이 아니라서 접근이 안됨. 
+		// 아래와 같이 접근해야 된다.
+		var num = btn.getAttribute('data-num');
+		console.log(num);
+		btn.setAttribute('data-num',30);
+		var num = btn.getAttribute('data-num');
+		console.log(num);
+
+		
+	</script>
+</body>
+</html>

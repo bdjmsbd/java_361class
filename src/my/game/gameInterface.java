@@ -73,7 +73,7 @@ public class gameInterface {
 
 	public static void playGround3() {
 		System.out.println("  0 1 2 3 4 5 6 7 8 9 A B C D E F");
-		System.out.println("0 □ □ □ □ □ □ □ □ □ □ B □ □ □ □ □");
+		System.out.println("0 □ □ □ □ □ □ □ □ □ ● B □ □ □ □ □");
 		System.out.println("1 □ □ □ □ □ □ □ □ □ □ W B □ □ □ □"); // ● ○
 		System.out.println("2 □ □ □ □ □ □ □ □ □ □ W W B □ □ □"); // ★ ◆ ◎ ＠깨짐
 		System.out.println("3 □ □ □ □ □ □ □ □ □ □ □ □ □ B □ □"); // X ▲ O B W

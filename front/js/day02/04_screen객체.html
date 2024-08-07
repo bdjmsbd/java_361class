@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<script>
+		/*
+		screen.width : 사용자 화면의 너비를 반환
+		screen.height : 사용자 화면의 높이를 반환
+		screen.availWidth : 사용 가능한 화면 너비를 반환(예를들면 PC 모니터에서 작업표시줄을 제외한. )
+		screen.availheight : 사용 가능한 화면 높이를 반환
+		screen.colorDepth : 화면 색 깊이를 반환(비트 값)
+		screen.pixelDepth : 화면의 픽셀 깊이를 반환(비트 값) => 클수록 색표현이 다양해짐 
+		screen.colorDepth : pixelDepth와 동일
+		*/
+		document.write(`화면 너비 ${screen.height}<hr>`);
+		document.write(`화면 높이 ${screen.width}<hr>`);
+		document.write(`사용가능한 화면 너비 ${screen.availWidth}<hr>`);
+		document.write(`사용가능한 화면 높이 ${screen.availheight}<hr>`);
+		document.write(`화면 색 깊이 ${screen.colorDepth}<hr>`);
+		document.write(`화면 픽셀 깊이 ${screen.pixelDepth}<hr>`);
+
+
+	</script>
+</body>
+
+</html>

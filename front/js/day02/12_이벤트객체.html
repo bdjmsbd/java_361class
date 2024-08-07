@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="box">
+		<button id="btn">버튼</button>
+	</div>
+	<hr>
+	<input type="text" id="input">
+	<hr>
+	<a href="http://naver.com" id="box2" style="height: 1800px; background: yellow;display: block;"></a>
+
+	<script>
+		/*
+		type 
+			- 이벤트 유형
+			- click, keydown, mouseover 등
+		target
+			- 이벤트가 발생한 원래 요소
+		currentTarget
+			- 현재 요소
+		bubbles => e.eventPhase
+			- 이벤트가 버블링 되는지 여부
+			- true: 버블링, false: 캡처링
+			- 0 : none, 1: 캡처링, 2: 타깃(이벤트발생지), 3: 버블링
+		defaultPrevented
+			- 기본 동작이 취소되었는 지 여부
+			- true : 기본 동작 취소, false : 취소 안됨
+		timeStamp
+		- 이벤트 생성시간
+		- 브라우저마다 다를 수 있음
+	
+			
+		*/
+
+		// 클릭 쿨릭~ 버블링이 일어난다. 
+		const btn = document.getElementById("btn");
+		const box = document.getElementById("box");
+		const box2 = document.getElementById('box2');
+		const input = document.getElementById('input');
+		
+		btn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			// 버블링/캡처링 중지로 box클릭까지 실행되지 않음.
+
+
+			console.log(`<버튼>`);
+			console.log(`type : ${e.type}<br>`);
+			console.log(`이벤트 유형 : ${e.target}`);
+			console.log(e.currentTarget);
+			console.log(`이벤트 단계 : ${e.eventPhase}`);
+			console.log(`이벤트 생성 시간 : ${e.timeStamp}`);
+		});
+
+
+		box.addEventListener('click', function (e) {
+			console.log(`<박스>`);
+			console.log(`type : ${e.type}<br>`);
+			console.log(`이벤트 유형 : ${e.target}`);
+			console.log(e.currentTarget);
+			console.log(`이벤트 단계 : ${e.eventPhase}`);
+			console.log(`이벤트 생성 시간 : ${e.timeStamp}`);
+		});
+
+		/*
+		preventDefault()
+			- 기본 동작을 막아줌
+		clientX/clientY
+			- 이벤트가 발생한 시점의 뷰포트 내 좌표
+			- 브라우저 내의 위치
+		pageX/pageY
+			- 이벤트가 발생한 시점의 문서 내 좌표 => 스크롤이 있는 문서일 경우 뷰포트 내 좌표와 값 차이가 커진다.
+		screenX/screenY
+			- 이벤트가 발생한 시점의 화면 내 좌표
+		button
+			- 누른 마우스 버튼
+			- 0: 왼쪽, 1: 휠, 2: 오른쪽
+		*/
+		box2.addEventListener('click', function(e){
+			e.preventDefault();
+			// 해당 이벤트를 호출하면, a link로 넘어가지지 않는다. 
+			console.log(`기본 동작 취소 : ${e.defaultPrevented}`);
+			console.log(`뷰 포트내 좌표 : ${e.clientX},${e.clientY}`)
+			console.log(`문서 내 좌표 : ${e.pageX},${e.pageY}`)
+			console.log(`화면 내 좌표 : ${e.screenX},${e.screenY}`)
+			console.log(`눌린 키 : ${e.button}`);
+		
+		});
+
+		/* 
+		key
+			- 눌린 키를 문자열로 나타냄
+		code
+			- 키의 물리적 위치
+			- 한글, 영어 대/소문자 구분x
+		altKey, ctrlKey, shiftKey, metaKey(윈도우키 또는 커맨드키)
+			- 각 키가 눌렸는지 여부를 나타냄
+		which
+			- 눌린 키의 코드값
+			- 최신 버전에서 잘 사용되지 않음
+		*/
+		input.addEventListener('keydown',function(e){
+			console.log(`key : ${e.key}`);
+			console.log(`code : ${e.code}`);
+			console.log(`altKey : ${e.altKey}`)
+			e.stopImmediatePropagation();
+			e.stopPropagation();
+		});
+		/*	
+		stopPropagation()
+			- 버블링/캡처링을 중지
+			- 현재 요소에 등록된 다른 이벤트들은 호출
+		stopImmediatePropagation()
+			- 버블링/캡처링을 중지
+			- 현재 요소에 등록된 다른 이벤트들을 중지
+		*/
+	</script>
+
+
+
+
+
+
+</body>
+
+</html>

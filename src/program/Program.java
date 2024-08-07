@@ -8,8 +8,10 @@ public interface Program {
 
 	void run();
 
-	void save(String fileName);
+	default void save(String fileName) {
+	}
 
-	void load(String fileName);
+	default void load(String fileName) {
+	}
 
 }
