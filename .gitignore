@@ -1,1 +1,10 @@
 /bin/
+*.class
+.classpath
+.project
+.settings/
+
+.gitignore
+java_bdj\.gitignore
+
+manifest.mf
