@@ -6,5 +6,6 @@
 
 .gitignore
 java_bdj\.gitignore
+java_bdj\java_bdj\
 
 manifest.mf

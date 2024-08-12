@@ -1,4 +1,4 @@
-package servlet1.filter;
+package kr.kh.app.filter;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpFilter;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/")
+@WebFilter("/*")
 public class EncodingFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

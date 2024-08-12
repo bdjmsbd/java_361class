@@ -1,15 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>메인</title>
+<jsp:include page="/WEB-INF/views/common/head.jsp" />
 </head>
 <body>
-	<h1>메인 페이지</h1>
-	<p>안녕하세요. 제 이름은 ${name}입니다. </p>
-	<p>안녕하세요. 제 이름은 ${person.name}입니다. </p>
-	<p>나이는 ${person.age}살 입니다. </p>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<div class="container">
+		<h1>메인 페이지</h1>
+
+	</div>
 </body>
 </html>
