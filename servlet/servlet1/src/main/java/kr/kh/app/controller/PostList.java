@@ -49,6 +49,11 @@ public class PostList extends HttpServlet {
 			//서비스에게 커뮤니티 번호를 주면서 게시글 리스트를 가져오라고 시킴
 			List<PostVO> list = postService.getPostList(cri);
 			
+			for(PostVO post : list) {
+				post.setPo_up(postService.getUp(post.getPo_num()));
+				post.setPo_down(postService.getDown(post.getPo_num()));
+			}
+			
 			//화면에 커뮤니티 정보를 전송
 			request.setAttribute("co", community);
 			//화면에 가져온 게시글 리스트를 전송 

@@ -16,4 +16,7 @@ public class PostVO {
 	private Date po_date; 
 	private int po_view;
 	private int po_report;
+	
+	private int po_up = 0;
+	private int po_down = 0;
 }

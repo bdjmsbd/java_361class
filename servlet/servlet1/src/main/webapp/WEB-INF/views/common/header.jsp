@@ -16,6 +16,11 @@
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value="/community"/>">커뮤니티</a></li>
+			<c:if test="${user ne null && user.me_authority eq 'ADMIN'}">
+				<li class="nav-item"><a class="nav-link"
+					href="<c:url value="/admin/community"/>">커뮤니티 관리</a></li>
+
+			</c:if>
 
 			<c:choose>
 				<c:when test="${user == null }">
@@ -29,7 +34,7 @@
 						href="<c:url value="/logout"/>">로그아웃</a></li>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value="/main2"/>">예전메인</a></li>
 		</ul>
