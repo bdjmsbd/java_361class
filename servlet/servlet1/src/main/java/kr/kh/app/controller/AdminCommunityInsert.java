@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.AdminService;
 import kr.kh.app.service.AdminServiceImp;
 
@@ -21,8 +22,9 @@ public class AdminCommunityInsert extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String coName = req.getParameter("co_name");
+		MemberVO user = (MemberVO) req.getSession().getAttribute("user");
 
-		if (adminService.insertCommunity(coName)) {
+		if (adminService.insertCommunity(coName, user)) {
 			req.setAttribute("msg", "커뮤니티를 등록했습니다.");
 			req.setAttribute("url", "/admin/community");
 

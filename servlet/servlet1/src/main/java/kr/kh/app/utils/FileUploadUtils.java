@@ -22,7 +22,6 @@ public class FileUploadUtils {
 //	String [] items = contentDisposition.split(";");
 		List<String> items = Arrays.asList(contentDisposition.split(";"));
 		for (String item : items) {
-			System.out.println(item);
 			// 속성명= 값;
 			if (item.trim().startsWith("filename")) {
 				return item.substring(item.indexOf("=") + 2, item.length() - 1);

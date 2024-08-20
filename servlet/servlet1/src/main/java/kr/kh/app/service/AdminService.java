@@ -1,7 +1,13 @@
 package kr.kh.app.service;
 
+import kr.kh.app.model.vo.MemberVO;
+
 public interface AdminService {
 
-	boolean insertCommunity(String coName);
+	boolean insertCommunity(String coName, MemberVO user);
+
+	boolean deleteCommunity(int co_num, MemberVO user);
+
+	boolean updateCommunity(int co_num, String co_name, MemberVO user);
 
 }

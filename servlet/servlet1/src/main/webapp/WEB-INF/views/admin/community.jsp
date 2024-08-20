@@ -46,21 +46,47 @@
 		<h1>커뮤니티 목록</h1>
 		<ul class="list-communtiy">
 			<c:forEach items="${list}" var="co">
-				<li class="item-community">
-					<span class="link-community"> 
+				<li class="item-community"><span class="link-community">
 						<span>${co.co_name}</span>
-						<button class="btn btn-outline-danger btn-update" data-num="${co.co_num}">수정</button>
-						<button class="btn btn-outline-secondary btn-delete" data-num="${co.co_num}">삭제</button>
-					</span>
-				</li>
+						<button class="btn btn-outline-danger btn-update"
+							data-num="${co.co_num}">수정</button> <a
+						class="btn btn-outline-secondary btn-delete"
+						href="<c:url value = "/admin/community/delete?co_num=${co.co_num}"/>">삭제</a>
+				</span></li>
 			</c:forEach>
 		</ul>
-		<form class="input-group mb-3" action="<c:url value="/admin/community/insert"/>" method="post">
+		<form class="input-group mb-3"
+			action="<c:url value="/admin/community/insert"/>" method="post" id="form_insert">
 			<input type="text" name="co_name" class="form-control">
 			<div class="input-group-append">
 				<button type="submit" class="btn btn-outline-success">등록</button>
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+		$('.btn-delete').click(function(e) {
+			if (!confirm('해당 커뮤니티를 삭제하시겠습니까?'))
+				e.preventDefault();
+			return;
+		});
+		$('.btn-update').click(function(e) {
+			$('#form_update').remove();
+			var num = $(this).data('num');
+			var name = $(this).prev().text();
+			var str = `
+				<form class="input-group mb-3"
+				action="<c:url value="/admin/community/update"/>" method="post" id="form_update">
+				<input type="text" name="co_name" class="form-control" value="\${name}">
+				<div class="input-group-append">
+					<button type="submit" class="btn btn-outline-success">수정 등록</button>
+				</div>
+				<input type="hidden" name="co_num" value="\${num}">
+				</form>
+			`;
+			$('#form_insert').hide();
+			$('#form_insert').after(str);
+		});
+		
+	</script>
 </body>
 </html>

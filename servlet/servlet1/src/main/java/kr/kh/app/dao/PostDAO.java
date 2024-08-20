@@ -65,4 +65,8 @@ public interface PostDAO {
 
 	boolean insertCommunity(@Param("co_name")String coName);
 
+	boolean deleteCommunity(@Param("co_num")int co_num);
+
+	boolean updateCommunity(@Param("co_num")int co_num, @Param("co_name")String coName);
+
 }

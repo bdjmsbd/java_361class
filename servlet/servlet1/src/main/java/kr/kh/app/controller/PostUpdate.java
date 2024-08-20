@@ -71,7 +71,6 @@ public class PostUpdate extends HttpServlet {
 			MemberVO user = (MemberVO) request.getSession().getAttribute("user");
 
 			PostVO post = postService.getPost(poNum, user);
-
 			post.setPo_title(title);
 			post.setPo_content(content);
 			

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.kh.app.dao.PostDAO;
+import kr.kh.app.model.vo.MemberVO;
 
 public class AdminServiceImp implements AdminService {
 
@@ -28,9 +29,26 @@ public class AdminServiceImp implements AdminService {
 		}
 	}
 
-	@Override
-	public boolean insertCommunity(String coName) {
 
+	@Override
+	public boolean deleteCommunity(int co_num, MemberVO user) {
+		
+		if(user == null || !user.getMe_authority().equals("ADMIN")) {
+			return false;
+		}
+		
+		
+		return postDao.deleteCommunity(co_num);
+	}
+
+
+	@Override
+	public boolean insertCommunity(String coName, MemberVO user) {
+		
+		if(user == null || !user.getMe_authority().equals("ADMIN")) {
+			return false;
+		}
+		
 		if (coName == null || coName.trim().length() == 0) {
 			return false;
 		}
@@ -42,7 +60,27 @@ public class AdminServiceImp implements AdminService {
 			e.printStackTrace();
 			return false;
 		}
+	}
 
+
+	@Override
+	public boolean updateCommunity(int co_num, String coName, MemberVO user) {
+
+		if(user == null || !user.getMe_authority().equals("ADMIN")) {
+			return false;
+		}
+		
+		if (coName == null || coName.trim().length() == 0) {
+			return false;
+		}
+		try {
+			
+			return postDao.updateCommunity(co_num, coName);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
