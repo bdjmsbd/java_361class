@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
 .dropdown-content {
@@ -36,25 +46,21 @@
 </style>
 </head>
 <body>
-
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<ul class="navbar-nav">
 			<li class="nav-item active"><a class="nav-link"
 				href="<c:url value ="/"/>">Home</a></li>
 
 			<li class="nav-item dropdown pl-5"><a
-				class="nav-link dropdown-toggle" href="<c:url value="/community"/>">커뮤니티</a>
+				class="nav-link dropdown-toggle" href="<c:url value="/post/list"/>">커뮤니티</a>
 				<div class="dropdown-content" id="community-list"></div></li>
-
-			<li class="nav-item"><a class="nav-link pr-5"
-				href="<c:url value="/hab2"/>">가계부</a></li>
 
 			<c:if test="${user == null}">
 				<li class="nav-item w3-display-right" style="padding-right: 65px">
 					<a class="nav-link pr-5" href="<c:url value="/signup"/>">회원가입</a>
 				</li>
 				<li class="nav-item w3-display-right"><a class="nav-link pr-5"
-					href="<c:url value="/login"/>" > 로그인</a></li>
+					href="<c:url value="/login"/>">로그인</a></li>
 			</c:if>
 			<c:if test="${user != null }">
 				<li class="nav-item w3-display-right"><a class="nav-link pr-5"
@@ -73,25 +79,6 @@
 				</div></li> -->
 		</ul>
 	</nav>
-	<script type="text/javascript">
-	$.ajax({
-		url : '<c:url value="/community"/>',
-		method : 'post',
-		success : function(data){
-			var str = '';
-			var list = data.list;
-			for(co of list){
-				str += 
-				`<a class="dropdown-item" href="<c:url value="/post/list?co_num=\${co.co_num}"/>">
-				\${co.co_name}
-				</a>`;
-			}
-			$("#community-list").html(str);
-		},
-		error : function(xhr){
-			console.log(xhr);
-		}
-	});
-</script>
+
 </body>
 </html>

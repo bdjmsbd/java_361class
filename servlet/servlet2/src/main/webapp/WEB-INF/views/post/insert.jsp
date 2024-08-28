@@ -24,38 +24,34 @@
 	<div class="container" style="min-height: calc(100vh - 237px)">
 		<div class="container">
 			<h1>게시글 등록</h1>
-			<form action="<c:url value="/post/insert"/>" method="post">
+			<form action="<c:url value="/post/insert"/>" method="post"
+				enctype="multipart/form-data">
 				<div class="form-group">
-					<input type="text"
-						class="form-control mt-3" id="title" name="title"
-						placeholder='제목을 작성해주세요.'>
+					<input type="text" class="form-control mt-3" id="title"
+						name="po_title" placeholder='제목을 작성해주세요.'>
 				</div>
 				<div class="form-group">
-					<textarea type="text" class="form-control mt-3" id="content"
-					name="content"></textarea>
+					<textarea type="text" class="form-control mt-3" id="po_content"
+						name="content"></textarea>
 				</div>
-
-				<button type="submit" class="btn btn-primary btn-lg col-12">등록</button>
+				<div class="form-group">
+					<label>파일</label> <input type="file" class="form-control"
+						name="file" />
+				</div>
 				<input type="hidden" name="co_num" value="${co_num}">
-
-
-
-
+				<button type="submit" class="btn btn-primary btn-lg col-12">등록</button>
 			</form>
 		</div>
-
 	</div>
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
 	<script>
-	
 		$('#content').summernote({
 			placeholder : '내용을 작성해주세요.',
 			tabsize : 2,
 			height : 450
 		});
-		
 	</script>
 
 </body>
