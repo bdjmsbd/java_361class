@@ -20,6 +20,25 @@ public interface PostDAO {
 	boolean insertPost(@Param("post")PostVO post);
 
 	void insertFile(@Param("file")FileVO fileVo);
+	
+	void updateView(@Param("po_num")Integer po_num);
 
+	PostVO selectPost(@Param("po_num")Integer po_num);
+
+	List<FileVO> selectFileList(@Param("po_num")Integer po_num);
+
+	FileVO selectFile(@Param("fi_num")int fi_num);
+
+	void deleteFile(@Param("fi_num")int fi_num);
+
+	boolean updatePost(@Param("po")PostVO post);
+
+	boolean deletePost(@Param("po")PostVO post);
+
+	void insertCommunity(@Param("co")CommunityVO community);
+
+	int deleteCommunity(@Param("co_num")Integer co_num);
+
+	int updateCommunity(@Param("co")CommunityVO community);
 
 }

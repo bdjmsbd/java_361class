@@ -17,6 +17,8 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/download/**"
+		location="file:///D:/uploads/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -54,9 +56,50 @@
 
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<!-- <beans:constructor-arg value="서버에 저장할 경로"/> -->
-		<beans:constructor-arg
-			value="D:\uploads" />
+		<beans:constructor-arg value="D:\uploads" />
 	</beans:bean>
 
+	<!-- 인터셉터 등록 -->
+	<beans:bean id="adminInterceptor"
+		class="kr.kh.spring.interceptor.AdminInterceptor" />
+	<beans:bean id="memberInterceptor"
+		class="kr.kh.spring.interceptor.MemberInterceptor" />
+	<beans:bean id="guestInterceptor"
+		class="kr.kh.spring.interceptor.GuestInterceptor" />
+	<beans:bean id="loginInterceptor"
+		class="kr.kh.spring.interceptor.LoginInterceptor" />
+	<beans:bean id="autoLoginInterceptor"
+		class="kr.kh.spring.interceptor.AutoLoginInterceptor" />
+
+	<!-- 인터셉터 맵핑 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**" />
+			<beans:ref bean="adminInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/post/insert" />
+			<mapping path="/post/update" />
+			<mapping path="/post/delete" />
+			<beans:ref bean="memberInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/signup" />
+			<mapping path="/signup/" />
+			<mapping path="/login" />
+			<mapping path="/login/" />
+			<beans:ref bean="guestInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/login" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:ref bean="autoLoginInterceptor" />
+		</interceptor>
+		<!-- <interceptor> <mapping path="인터셉터를 실행할 URL1" /> <mapping path="인터셉터를 
+			실행할 URL2" /> <beans:ref bean="인터셉터객체명2" /> </interceptor> -->
+	</interceptors>
 
 </beans:beans>

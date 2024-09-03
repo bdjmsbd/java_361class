@@ -23,7 +23,7 @@
 
 <body>
 	<div class="jumbotron text-center w3-block" style="margin-bottom: 0">
-		<h1>ㅣ ㅈ ㅏ ㄲ ㅔ ㅈ ㄴ ㅓ ㅇ</h1>
+		<h1> T E A M _ S I X </h1>
 	</div>
 </body>
 </html>

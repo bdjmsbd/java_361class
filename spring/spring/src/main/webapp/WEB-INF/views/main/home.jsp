@@ -7,11 +7,6 @@
 <%@page import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
-<head>
-<title>Home</title>
-
-
-</head>
 
 <body>
 

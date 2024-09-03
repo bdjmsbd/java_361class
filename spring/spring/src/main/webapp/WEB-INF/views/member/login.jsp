@@ -23,8 +23,14 @@
 				<label for="pwd">비밀번호:</label> <input type="password"
 					class="form-control" id="me_pw" name="me_pw">
 			</div>
+			<div class="form-check-inline mb-1">
+				<label class="form-check-label"> 
+				<input type="checkbox" class="form-check-input" value="true" name="autoLogin">자동로그인
+				</label>
+			</div>
 			<button type="submit" class="btn btn-outline-success col-12">로그인</button>
 		</form>
+		<a class="btn btn-success mt-3 col-2 float-right" href="<c:url value="/find/pw"/>">비밀번호 찾기</a>
 	</div>
 
 

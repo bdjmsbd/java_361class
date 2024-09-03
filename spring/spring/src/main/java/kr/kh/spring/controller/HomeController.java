@@ -1,13 +1,14 @@
 package kr.kh.spring.controller;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,13 +75,16 @@ public class HomeController {
 
 		MemberVO user = memberService.login(member);
 		if (user != null) {
+
+			user.setAutoLogin(member.isAutoLogin());
 			model.addAttribute("msg", "로그인을 성공 했습니다.");
 			model.addAttribute("url", "/");
 		} else {
 			model.addAttribute("msg", "로그인을 실패 했습니다.");
 			model.addAttribute("url", "/login");
 		}
-		session.setAttribute("user", user);
+		model.addAttribute("user", user);
+		// session.setAttribute("user", user);
 		return "/main/message";
 
 	}
@@ -91,7 +95,8 @@ public class HomeController {
 		MemberVO user = (MemberVO) session.getAttribute("user");
 
 		if (user != null) {
-
+			user.setMe_cookie(null);
+			memberService.updateMemberCookie(user);
 			session.removeAttribute("user");
 
 			model.addAttribute("msg", "로그아웃 했습니다.");
@@ -128,4 +133,18 @@ public class HomeController {
 		}
 	}
 
+	@GetMapping("/find/pw")
+	public String findPw(Model model, HttpSession session) {
+
+		return "/member/findPw";
+	}
+
+	@ResponseBody
+	@PostMapping("/find/pw")
+	public boolean findPwPost(@RequestParam("id") String id, @RequestParam("email") String email) {
+		
+		System.out.println("id : " + id + ", email : "+ email);
+		boolean res = memberService.findPw(id, email);
+		return res;
+	}
 }

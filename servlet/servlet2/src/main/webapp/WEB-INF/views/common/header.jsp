@@ -42,12 +42,8 @@
 			<li class="nav-item active"><a class="nav-link"
 				href="<c:url value ="/"/>">Home</a></li>
 
-			<li class="nav-item dropdown pl-5"><a
-				class="nav-link dropdown-toggle" href="<c:url value="/community"/>">커뮤니티</a>
-				<div class="dropdown-content" id="community-list"></div></li>
-
 			<li class="nav-item"><a class="nav-link pr-5"
-				href="<c:url value="/hab2"/>">가계부</a></li>
+				href="<c:url value="/moneybook"/>">가계부</a></li>
 
 			<c:if test="${user == null}">
 				<li class="nav-item w3-display-right" style="padding-right: 65px">
@@ -62,36 +58,7 @@
 			</c:if>
 			<li class="nav-item"><a class="nav-link disabled" href="#"></a>
 			</li>
-
-			<!-- <li class="nav-item dropdown w3-display-right"><a
-				class="nav-link dropdown-toggle pr-5" href="#" id="navbardrop"
-				data-toggle="dropdown"> Dropdown link </a>
-				<div class="dropdown-menu ">
-					<a class="dropdown-item" href="#">Link 1</a> <a
-						class="dropdown-item" href="#">Link 2</a> <a class="dropdown-item"
-						href="#">Link 3</a>
-				</div></li> -->
 		</ul>
 	</nav>
-	<script type="text/javascript">
-	$.ajax({
-		url : '<c:url value="/community"/>',
-		method : 'post',
-		success : function(data){
-			var str = '';
-			var list = data.list;
-			for(co of list){
-				str += 
-				`<a class="dropdown-item" href="<c:url value="/post/list?co_num=\${co.co_num}"/>">
-				\${co.co_name}
-				</a>`;
-			}
-			$("#community-list").html(str);
-		},
-		error : function(xhr){
-			console.log(xhr);
-		}
-	});
-</script>
 </body>
 </html>

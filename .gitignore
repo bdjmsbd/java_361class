@@ -71,3 +71,4 @@ test/
 front/1.png
 
 *.png
+spring/spring/src/main/webapp/WEB-INF/spring/config.properties

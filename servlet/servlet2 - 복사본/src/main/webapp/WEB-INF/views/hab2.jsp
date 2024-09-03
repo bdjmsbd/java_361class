@@ -106,7 +106,7 @@ th {
 					<tr>
 						<td>24/08/23 12:30</td>
 						<td></td>
-						<td colspan=2>현대백화점</td>
+						<td colspan=2>더미 1</td>
 						<td>85,000</td>
 						<td></td>
 						<td>신용카드</td>
@@ -114,7 +114,7 @@ th {
 					<tr>
 						<td>24/08/23 12:30</td>
 						<td></td>
-						<td colspan=2>KT</td>
+						<td colspan=2>더미 2</td>
 						<td>45,000</td>
 						<td></td>
 						<td>신용카드</td>

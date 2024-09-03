@@ -55,6 +55,11 @@
 				class="nav-link dropdown-toggle" href="<c:url value="/post/list"/>">커뮤니티</a>
 				<div class="dropdown-content" id="community-list"></div></li>
 
+			<c:if test="${user.me_authority == 'ADMIN'}">
+			<li class="nav-item dropdown pl-2"><a
+				class="nav-link" href="<c:url value="/admin/community"/>">커뮤니티 관리</a>
+			</c:if>
+
 			<c:if test="${user == null}">
 				<li class="nav-item w3-display-right" style="padding-right: 65px">
 					<a class="nav-link pr-5" href="<c:url value="/signup"/>">회원가입</a>
@@ -79,6 +84,27 @@
 				</div></li> -->
 		</ul>
 	</nav>
+
+	<script type="text/javascript">
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/post/community/list"/>',
+		type : 'post',
+		success : function (data) {
+			var str = '';
+			for(community of data) {
+				str += `
+					<a class="dropdown-item" href="<c:url value="/post/list?co_num="/>\${community.co_num}">\${community.co_name}</a>
+				`
+			}
+			$('#community-list').html(str);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+			
+		}	
+	});
+	</script>
 
 </body>
 </html>

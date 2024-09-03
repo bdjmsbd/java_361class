@@ -59,7 +59,16 @@
 				<c:forEach items="${postList}" var="po">
 					<tr class="table-light">
 						<td>${po.po_num }</td>
-						<td><a href="#">${po.po_title }</a></td>
+						<td>
+						<c:url var="url" value="/post/detail">
+								<c:param name="co_num" value="${pm.cri.co_num }"/>
+								<c:param name="page" value="${pm.cri.page }"/>
+								<c:param name="type" value="${pm.cri.type }"/>
+								<c:param name="search" value="${pm.cri.search}"/>
+								<c:param name="po_num" value="${po.po_num }"/>
+						</c:url>
+						<a href="${url}">${po.po_title }</a>
+						</td>
 						<td style="text-align: center;"><c:url var="url"
 								value="/post/list">
 								<c:param name="co_num" value="${pm.cri.co_num}" />

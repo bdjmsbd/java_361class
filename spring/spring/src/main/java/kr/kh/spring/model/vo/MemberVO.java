@@ -19,4 +19,6 @@ public class MemberVO {
 	private int me_report;
 	private String me_ms_name;
 	private Date me_stop;
+	
+	boolean autoLogin;
 }

@@ -16,7 +16,17 @@
 		<org.apache.tiles-version>3.0.8</org.apache.tiles-version>
 	</properties>
 	<dependencies>
-
+	<!-- pom.xml -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4.3</version>
+	</dependency>
 
 		<!-- Spring -->
 		<dependency>

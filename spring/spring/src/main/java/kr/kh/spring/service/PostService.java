@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.spring.model.vo.CommunityVO;
+import kr.kh.spring.model.vo.FileVO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.model.vo.PostVO;
 import kr.kh.spring.pagination.PageMaker;
@@ -20,5 +21,15 @@ public interface PostService {
 	PageMaker getPageMaker(PostCriteria cri);
 
 	boolean insertPost(PostVO post, MemberVO user, MultipartFile[] fileList);
+
+	List<FileVO> getFileList(Integer po_num);
+
+	PostVO getPost(Integer po_num);
+
+	void updateView(Integer po_num);
+
+	boolean updatePost(PostVO post, int[] fi_nums, MultipartFile[] fileList, MemberVO user);
+
+	boolean deletePost(PostVO post, MemberVO user);
 
 }

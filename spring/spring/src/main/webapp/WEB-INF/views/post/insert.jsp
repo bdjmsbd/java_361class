@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="form-group">
-			<label>파일2</label> 
+			<label>첨부파일</label> 
 			<input type="file" class="form-control mb-1 pb-5" name="fileList" />
 			<input type="file" class="form-control mb-1 pb-5" name="fileList" />
 			<input type="file" class="form-control mb-1 pb-5" name="fileList" />

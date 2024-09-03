@@ -31,7 +31,10 @@ public class PostCriteria extends Criteria {
 	public String toString() {
 		return "[co_num=" + co_num + "] " + super.toString();
 	}
-	
+
+	public String getParams() {
+		return "co_num="+co_num+"&page=" +super.getPage()+"&type="+super.getType()+ "&search=" +super.getSearch()+"&perPageNum="+ super.getPerPageNum();
+	}
 	
 
 }
