@@ -3,6 +3,7 @@ package kr.kh.spring.service;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,7 +19,7 @@ public class MemberServiceImp implements MemberService {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private MemberDAO memberDao;
 
@@ -93,54 +94,50 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		}
 		MemberVO user = memberDao.selectMember(id);
-		if(user == null) {
+		if (user == null) {
 			return false;
 		}
-		if(!email.equals(user.getMe_email())){
+		if (!email.equals(user.getMe_email())) {
 			return false;
 		}
-		
+
 		String title = "새로운 비밀번호입니다.";
-		
+
 		boolean res = mailSend(email, title, "새로운 비밀번호는 <b><font color='red'>" + newPw + "</font></b>입니다.");
-		
-		if(!res) {
+
+		if (!res) {
 			return false;
 		}
-		
+
 		// 디비에 새로운 비밀번호 저장
 		String encPw = passwordEncoder.encode(newPw);
-		memberDao.updatePassword(id,encPw);
-		
+		memberDao.updatePassword(id, encPw);
+
 		return true;
 	}
 
 	private String randomPassword(int numSize) {
 		String pw = "";
 		int max = 10 + 26 + 26; // 0~9 a-z A-Z
-		while(pw.length() < numSize) {
+		while (pw.length() < numSize) {
 			Random random = new Random();
 			int r = random.nextInt(max);
-			if(r<10) {
+			if (r < 10) {
 				pw += r;
-			}
-			else if(r<36) {
-				pw += (char)('a' + r - 10);
-			}
-			else {
-				pw += (char)('A' + r - 36);
+			} else if (r < 36) {
+				pw += (char) ('a' + r - 10);
+			} else {
+				pw += (char) ('A' + r - 36);
 			}
 		}
-		
+
 		return pw;
 	}
-	
-	
 
 	public boolean mailSend(String to, String title, String content) {
 
 		String setfrom = "bdjmsbd@naver.com";
-		
+
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -157,6 +154,46 @@ public class MemberServiceImp implements MemberService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	public boolean updateMember(MemberVO user, MemberVO member, HttpSession session) {
+		if (user == null || member == null) {
+			return false;
+		}
+		member.setMe_id(user.getMe_id());
+		if (member.getMe_pw().length() == 0) {
+			// 로그인한 회원 비번을 이용
+			member.setMe_pw(user.getMe_pw());
+		} else {
+			// 입력한 비번을 암호화
+			String encPw = passwordEncoder.encode(member.getMe_pw());
+			member.setMe_pw(encPw);
+			user.setMe_pw(encPw);
+		}
+		
+		if(member.getMe_email() != null) {
+			user.setMe_email(member.getMe_email());
+		}
+		
+		try {
+
+			boolean res = memberDao.updateMember(member);
+			session.removeAttribute("user");
+			session.setAttribute("user", user);
+
+			if (res) {
+				
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 

@@ -56,8 +56,8 @@
 				<div class="dropdown-content" id="community-list"></div></li>
 
 			<c:if test="${user.me_authority == 'ADMIN'}">
-			<li class="nav-item dropdown pl-2"><a
-				class="nav-link" href="<c:url value="/admin/community"/>">커뮤니티 관리</a>
+				<li class="nav-item dropdown pl-2"><a class="nav-link"
+					href="<c:url value="/admin/community"/>">커뮤니티 관리</a>
 			</c:if>
 
 			<c:if test="${user == null}">
@@ -68,6 +68,8 @@
 					href="<c:url value="/login"/>">로그인</a></li>
 			</c:if>
 			<c:if test="${user != null }">
+				<li class="nav-item w3-display-right" style="margin: 0px 110px 0px 0px;"><a class="nav-link"
+					href="<c:url value="/mypage"/>">마이 페이지</a></li>
 				<li class="nav-item w3-display-right"><a class="nav-link pr-5"
 					href="<c:url value="/logout"/>">로그아웃</a></li>
 			</c:if>

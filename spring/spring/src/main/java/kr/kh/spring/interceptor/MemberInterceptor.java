@@ -21,7 +21,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 		if (user == null) {
 
 			response.setContentType("text/html; charset=UTF-8;");
-			response.getWriter().write("<script>alert(\"회원만 접근할 수 있습니다..\")</script>");
+			response.getWriter().write("<script>alert(\"회원만 접근할 수 있습니다.\")</script>");
 			response.getWriter().write("<script>location.href='"+request.getContextPath() + "/login" + "'</script>");
 			response.flushBuffer();
 			

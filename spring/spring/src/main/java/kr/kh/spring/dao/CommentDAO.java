@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.spring.model.vo.CommentVO;
-import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.pagination.Criteria;
 
 public interface CommentDAO {

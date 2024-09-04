@@ -1,9 +1,8 @@
 package kr.kh.spring.controller;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.spring.model.dto.PersonDTO;
 import kr.kh.spring.model.vo.MemberVO;
 import kr.kh.spring.service.MemberService;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@Log4j
 public class HomeController {
 
 //	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -41,6 +42,7 @@ public class HomeController {
 	// return type을 void로 하면 value의 url로 리턴 된다.
 	public String home(Locale locale, Model model, PersonDTO person) {
 
+		log.info("person : " + person + "\n");
 		return "/main/home";
 	}
 
@@ -66,7 +68,11 @@ public class HomeController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request) {
+		String prevUrl = request.getHeader("Referer");
+		if (prevUrl != null && !prevUrl.contains("/login")) {
+			request.getSession().setAttribute("prevUrl", prevUrl);
+		}
 		return "/member/login";
 	}
 
@@ -142,9 +148,27 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/find/pw")
 	public boolean findPwPost(@RequestParam("id") String id, @RequestParam("email") String email) {
-		
-		System.out.println("id : " + id + ", email : "+ email);
+
+		System.out.println("id : " + id + ", email : " + email);
 		boolean res = memberService.findPw(id, email);
 		return res;
+	}
+
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/member/mypage";
+	}
+
+	@PostMapping("/mypage")
+	public String mypagePost(Model model, HttpSession session, MemberVO member) {
+		MemberVO user = (MemberVO) session.getAttribute("user");
+		boolean res = memberService.updateMember(user, member, session);
+		if (res) {
+			model.addAttribute("msg", "회원 정보를 수정했습니다.");
+		} else {
+			model.addAttribute("msg", "회원 정보를 수정에 실패했습니다.");
+		}
+		model.addAttribute("url", "/mypage");
+		return "/main/message";
 	}
 }

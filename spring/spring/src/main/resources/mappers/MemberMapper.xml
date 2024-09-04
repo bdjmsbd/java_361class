@@ -16,6 +16,15 @@
 		me_id = #{me_id}
 	</select>
 
+	<update id="updateMember">
+		update member
+		set
+		me_pw = #{user.me_pw},
+		me_email = #{user.me_email}
+		where
+		me_id = #{user.me_id}
+	</update>
+
 	<update id="updateMemberCookie">
 		update member
 		set
@@ -29,9 +38,9 @@
 		select * from
 		member where me_cookie = #{me_cookie} and me_limit > now()
 	</select>
-	
+
 	<update id="updatePassword">
-	update member set me_pw = #{me_pw} where me_id = #{me_id}
+		update member set me_pw = #{me_pw} where me_id = #{me_id}
 	</update>
 
 </mapper>
