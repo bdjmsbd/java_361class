@@ -1,23 +1,31 @@
 package kr.kh.study.config;
 
+import java.util.Properties;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.Properties;
-
 @Configuration
 public class MailConfig {
+	
+    @Value("${email.id}")
+    private String emailId;
+
+    @Value("${email.password}")
+    private String emailPassword;
 
 	@Bean
 	public JavaMailSender javaMailSender() {
+		
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 
-		mailSender.setUsername("bdjmsbd@gmail.com");
-		mailSender.setPassword("quzcsbzzdijalijk");
+		mailSender.setUsername(emailId);
+		mailSender.setPassword(emailPassword);
 
 		Properties props = mailSender.getJavaMailProperties();
 		props.put("mail.transport.protocol", "smtp");

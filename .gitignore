@@ -68,7 +68,7 @@ node_modules
 
 
 test/
-front/1.png
 
 *.png
-spring/spring/src/main/webapp/WEB-INF/spring/config.properties
+
+*config.properties

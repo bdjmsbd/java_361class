@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +25,9 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+    @Value("${email.id}")
+    private String emailId;
+    
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -47,7 +51,7 @@ public class HomeController {
 		System.out.println("enc : "+ enc);
 		System.out.println("res : "+ res);
 		
-		//mailSend("jkserena@naver.com","메일 테스티", "전송이 잘 됐습니다.");
+		// mailSend("jkserena@naver.com","새로운 메일 테스터어어", "전송이 베리 굿 잘 됐습니다.");
 
 		return "/home";
 	}
@@ -74,7 +78,7 @@ public class HomeController {
 
 	public boolean mailSend(String to, String title, String content) {
 
-	    String setfrom = "stajun@naver.com";
+	    String setfrom = emailId;
 	    
 	   try{
 	        MimeMessage message = mailSender.createMimeMessage();
