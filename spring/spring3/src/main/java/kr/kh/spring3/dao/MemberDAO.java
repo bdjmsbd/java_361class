@@ -6,4 +6,8 @@ public interface MemberDAO {
 	
 	boolean insertMember(MemberVO member);
 
+	MemberVO selectMember(MemberVO member);
+
+	void updateMemberCookie(MemberVO user);
+
 }

@@ -19,17 +19,21 @@ public class MemberService {
 	BCryptPasswordEncoder passwordEncoder;
 
 	public boolean signup(MemberVO member) {
-		if (member == null) {
+		try {
+			if (member == null || (memberDao.selectMember(member) != null)) {
+				return false;
+			}
+			// 회원 정규 표현식 검사
+			if (!regexCheckMember(member)) {
+				return false;
+			}
+			// 비번 암호화
+			String encPw = passwordEncoder.encode(member.getMe_pw());
+			member.setMe_pw(encPw);
+			return memberDao.insertMember(member);
+		} catch (Exception e) {
 			return false;
 		}
-		// 회원 정규 표현식 검사
-		if (!regexCheckMember(member)) {
-			return false;
-		}
-		// 비번 암호화
-		String encPw = passwordEncoder.encode(member.getMe_pw());
-		member.setMe_pw(encPw);
-		return memberDao.insertMember(member);
 	}
 
 	private boolean regexCheckMember(MemberVO member) {
@@ -42,4 +46,28 @@ public class MemberService {
 		return true;
 	}
 
+	public MemberVO login(MemberVO member) {
+
+		if (member == null) {
+			return null;
+		}
+
+		MemberVO loginUser = memberDao.selectMember(member);
+		boolean res = passwordEncoder.matches(member.getMe_pw(), loginUser.getMe_pw());
+
+		if (res) {
+			return loginUser;
+		} else {
+			return null;
+		}
+	}
+
+	public void updateMemberCookie(MemberVO user) {
+
+		if (user == null) {
+			return;
+		}
+		memberDao.updateMemberCookie(user);
+
+	}
 }

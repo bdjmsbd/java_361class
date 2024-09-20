@@ -8,4 +8,19 @@
 		me_ms_name)
 		values(#{me_id}, #{me_pw}, #{me_email}, '사용')
 	</insert>
+
+	<select id="selectMember"
+		resultType="MemberVO">
+		select * from member where me_id = #{me_id}
+	</select>
+
+	<update id="updateMemberCookie">
+		update member
+		set
+		me_cookie = #{user.me_cookie},
+		me_limit = #{user.me_limit}
+		where
+		me_id = #{user.me_id}
+	</update>
+
 </mapper>

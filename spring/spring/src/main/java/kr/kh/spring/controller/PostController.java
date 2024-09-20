@@ -114,7 +114,7 @@ public class PostController {
 			PostCriteria cri) {
 
 		MemberVO user = (MemberVO) session.getAttribute("user");
-
+		
 		if (postService.updatePost(post, fi_nums, fileList, user)) {
 			model.addAttribute("msg", "게시글이 수정되었습니다.");
 		} else {

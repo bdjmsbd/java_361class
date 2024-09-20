@@ -148,9 +148,7 @@ public class PostServiceImp implements PostService {
 		}
 
 		// 첨부파일 추가
-		if (fileList == null || fileList.length == 0) {
-			return res;
-		} else {
+		if (fileList != null && fileList.length != 0) {
 			for (MultipartFile file : fileList) {
 				uploadFile(file, post.getPo_num());
 			}
