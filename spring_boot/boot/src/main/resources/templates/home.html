@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<p sec:authorize="isAuthenticated()">
+			<span th:text="${#authentication.principal.member.me_id}+'님 반갑습니다.'"> </span> 
+			<span th:text="'내 이메일은' +${#authentication.principal.member.me_email}+'입니다.'"> </span>
+		</p>
+	</main>
+</body>
+</html>

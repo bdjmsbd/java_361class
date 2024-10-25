@@ -12,7 +12,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-
+	<context:property-placeholder location="/WEB-INF/spring/config.properties" />
+	
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<!-- MySQL 버전에 따라 driverClassName의 value값이 달라짐 아래 코드는 Mysql 8기준 -->

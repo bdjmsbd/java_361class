@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.boot.dao.PostDAO">
+	<select id="selectPostList" resultType="PostVO">
+		select * from post where
+		po_co_num = #{co_num}
+	</select>
+	<select id="selectCommunityList" resultType="CommunityVO">
+		select * from
+		community
+	</select>
+	<select id="selectCountPostList" resultType="int">
+		select count(*) from post where po_co_num = #{co_num}
+	</select>
+	<select id="selectPost" resultType="PostVO">
+		select * from post where po_num = #{po_num}
+	</select>
+	<insert id="insertPost" parameterType="PostVO" useGeneratedKeys="true" keyProperty="po_num">
+		insert into post (po_title, po_me_id, po_content, po_co_num) 
+		values(#{post.po_title}, #{post.po_me_id}, #{post.po_content}, #{post.po_co_num})
+	</insert>
+	<update id="updatePost">
+		update post set po_title = #{po_title}, po_content = #{po_content} where po_num = #{po_num}
+	</update>
+	
+	<delete id="deletePost">
+		delete from post where po_num =#{po_num}
+	</delete>
+</mapper>

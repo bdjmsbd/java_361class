@@ -124,7 +124,34 @@ public class HomeController {
 
 	@GetMapping("/naver/callback")
 	public String naverCallback(Model model, HttpSession session) {
-		System.out.println("yo~");
+		System.out.println("hello~");
+		String token = "AAAAONX7qCwwvob9emtECry9KHWlS1SZnPdS4WiLojF2pSoVkmXFjJiQnKHDbEk_R7fYc1G8N056-QolzJeB0NJbTz4";
+		// 네이버
+		// 넣어줍니다.
+		String header = "Bearer " + token; // Bearer 다음에 공백 추가
+		try {
+			String apiURL = "https://openapi.naver.com/v1/nid/me";
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", header);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		return "/naver/callback";
 	}
 
@@ -132,7 +159,7 @@ public class HomeController {
 	@GetMapping("/personalInfo")
 	public void personalInfo(HttpServletRequest request) throws Exception {
 		System.out.println("hello~");
-		String token = "AAAAOB88E4-J_0qIpfd2terE9aq7Leqncbo5HPrLxx5y9Xd19k6BpOSqwxN9TtvXlcUKqSbHxavYpvpDTWnKTJrEh0g";
+		String token = "AAAAOLOTOYlCoEE7WQbUHi3i3XuaEPoiEfLJ7ybwbXsBy8EjR5__sviBUhtjzPUwRTNE_ZT19qa1BYBuf8tTA7Q2epQ";
 		// 네이버
 		// 넣어줍니다.
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가

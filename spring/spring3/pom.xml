@@ -118,6 +118,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- 롬복 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

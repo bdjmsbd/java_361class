@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<main layout:fragment="content">
+		<div class="jumbotron">
+			<h2 th:text="${post.po_title}"></h2>
+			<div class="info">
+				<p style="float: left;">
+					<strong th:text="${post.po_me_id}"></strong> | <span th:text="${#dates.format(post.po_date, 'yyyy-MM-dd HH:mm:ss')}"></span>
+				</p>
+				<p style="float: right;">
+					조회수 : <span th:text="${post.po_view}"></span>
+				</p>
+			</div>
+		</div>
+		<div style="min-height: 400px;" th:utext="${post.po_content}"></div>
+
+		<a class="btn btn-outline-info" th:href="@{/post/list/{co_num}(co_num=${post.po_co_num})}">목록</a>
+		<a class="btn btn-outline-primary float-right" th:href="@{/post/delete/{co_num}/{po_num}(co_num=${post.po_co_num}, po_num=${post.po_num})}">삭제</a>
+		<a class="btn btn-outline-primary float-right mr-3" th:href="@{/post/update/{po_num}(po_num=${post.po_num})}">수정</a>
+	</main>
+
+</body>
+</html>

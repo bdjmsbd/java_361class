@@ -72,3 +72,4 @@ test/
 *.png
 
 *config.properties
+spring_boot/boot/src/main/resources/application.properties
